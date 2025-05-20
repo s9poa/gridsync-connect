@@ -14,7 +14,6 @@ createRoot(document.getElementById('root')).render(
       <LeftSidebar />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/signup" element={<Signup />} /> */}
       </Routes>
       <RightSidebar />
     </BrowserRouter>

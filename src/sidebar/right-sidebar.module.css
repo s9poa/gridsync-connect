@@ -5,3 +5,9 @@
     height: 100dvh;
     background: #0e1120;
 }
+
+@media (max-width: 1200px) {
+    aside {
+        display: none;
+    }
+}

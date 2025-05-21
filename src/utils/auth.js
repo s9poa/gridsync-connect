@@ -32,3 +32,37 @@ export async function signUp(email, password) {
 
     return { success: true };
 }
+
+export async function signIn(email, password) {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+        console.error("Sign-in error:", error.message);
+        return { error: error.message };
+    }
+
+    return { success: true };
+}
+
+export async function getUserWithProfile() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.user) return null;
+
+    const { data, error } = await supabase.from('profiles').select('username, title').eq('id', session.user.id).single();
+    if (error) {
+        console.error("Profile fetch error:", error.message);
+        return null;
+    }
+
+    return {
+        id: session.user.id,
+        email: session.user.email,
+        username: data.username,
+        title: data.title
+    };
+}
+
+export async function signOut() {
+  const { error } = await supabase.auth.signOut();
+  if (error) console.error("Sign-out error:", error.message);
+}

@@ -4,7 +4,10 @@ import styles from "./left-sidebar.module.css";
 import { signUp } from '../utils/auth';
 import { Link } from "react-router";
 
-function LeftSidebar ({ user }) {
+import { signIn, signOut, getUserWithProfile } from '../utils/auth';
+
+function LeftSidebar({ user, setUser }) {
+
     const [activeForm, setActiveForm] = useState(null);
     const [showAccountNav, setShowAccountNav] = useState(false);
 
@@ -23,9 +26,35 @@ function LeftSidebar ({ user }) {
             alert("Sign-up failed: " + result.error);
         } else {
             alert("Welcome! You're signed up.");
+            const userData = await getUserWithProfile();
+            if (userData) setUser(userData);
             setActiveForm(null);
-            // You’ll later update user state here after login
         }
+    };
+
+    const handleLogin = async (e) => {
+    e.preventDefault();
+    const email = e.target.elements['user-email'].value;
+    const password = e.target.elements['user-password'].value;
+
+    const result = await signIn(email, password);
+
+    if (result.error) {
+        alert("Login failed: " + result.error);
+    } else {
+        alert("Welcome back!");
+        const userData = await getUserWithProfile();
+        if (userData) {
+            setUser(userData); // ⬅️ This part needs to be added in your parent component
+            setActiveForm(null);
+        }
+    }
+    };
+
+    const handleLogout = async () => {
+    await signOut();
+    setUser(null);
+    setShowAccountNav(false);
     };
 
     return (
@@ -38,22 +67,24 @@ function LeftSidebar ({ user }) {
             </div>
             {/* Display when user is signed in */}
             {user && (
-                <button className={styles["account-display"]} aria-label="open profile navigation" onClick={() => setShowAccountNav(!showAccountNav)}>
-                    <div className={styles["account-info"]}>
-                        <img src="/placeholder.png" width="60" height="60" alt=""/>
-                        <div>
-                            <h2 className={styles.username}>{user.username}</h2>
-                            <p className={styles["account-title"]}>{user.title}</p>
+                <div className={styles["account-display-relative"]}>
+                    <button className={styles["account-display"]} aria-label="open profile navigation" onClick={() => setShowAccountNav(!showAccountNav)}>
+                        <div className={styles["account-info"]}>
+                            <img src="/placeholder.png" width="60" height="60" alt=""/>
+                            <div>
+                                <h2 className={styles.username}>{user.username}</h2>
+                                <p className={styles["account-title"]}>{user.title}</p>
+                            </div>
                         </div>
-                    </div>
-                    <i className="fa-solid fa-chevron-right" aria-hidden="true"></i>
-                    {/* Popup for Navigation when the "account-display" btn is clicked */}
-                    {showAccountNav && (
-                        <div className={styles["account-display-nav"]}>
-                            <button id="log-out-of-account">Log out</button>
-                        </div>
-                    )}
-                </button>
+                        <i className="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                        {/* Popup for Navigation when the "account-display" btn is clicked */}
+                        {showAccountNav && (
+                            <div className={styles["account-display-nav"]}>
+                                <button id="log-out-of-account" onClick={handleLogout}>Log out</button>
+                            </div>
+                        )}
+                </div>
             )}
             {/* Display when user is NOT signed in */}
             {!user && (
@@ -65,7 +96,7 @@ function LeftSidebar ({ user }) {
             {/* Display when open-login-dialog is clicked */}
             {activeForm === "login" && (
                 <div className={`${styles["login-form"]} ${styles["form-blur"]}`} onClick={handleClickOutside}>
-                    <form onClick={e => e.stopPropagation()}>
+                    <form onSubmit={handleLogin} onClick={e => e.stopPropagation()}>
                         <div className={styles.header}>
                             <h2>Sign In</h2>
                             <button type="button" className={styles["close-form"]} aria-label="Close log-in form" onClick={() => setActiveForm(null)}><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>

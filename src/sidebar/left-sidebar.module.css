@@ -37,6 +37,9 @@
     letter-spacing: .05em;
     color: var(--gray);
 }
+.account-display-relative {
+    position: relative;
+}
 .account-display {
     display: flex;
     justify-content: space-between;
@@ -44,14 +47,15 @@
     gap: .5rem;
     padding: 1rem;
     margin-top: 1rem;
-    position: relative;
-    display: none;
+    width: 100%;
 }
-.account-display .account-display-nav {
+.account-display-nav {
     position: absolute;
     top: 0;
     right: 0;
-    transform: translateX(-100%);
+    transform: translateX(100%);
+    z-index: 2;
+    background: rgba(0,0,0,.2);
 }
 .account-display:hover {
     background: var(--hover);
@@ -171,7 +175,7 @@
 .form-blur .input-grouping:nth-child(3) {
     margin-top: 2rem;
 }
-.form-blur input {
+.form-blur .input-grouping input {
     height: 3rem;
     border-radius: 5px;
     border: none;
@@ -179,11 +183,11 @@
     padding-left: .5rem;
     font-size: 1rem;
 }
-.form-blur input:focus {
+.form-blur .input-grouping input:focus {
     outline: none;
     box-shadow: 0 2px 0 var(--highlight);
 }
-.form-blur input::placeholder {
+.form-blur .input-grouping input::placeholder {
     color: var(--gray);
 }
 .form-blur .redirect {

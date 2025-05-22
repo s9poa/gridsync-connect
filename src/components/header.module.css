@@ -20,36 +20,92 @@
     text-align: center;
     transition: padding .2s ease-in-out;
 }
-.header > div > .mobile-menu {
+.header > div > .mobile-menu, .mobile-menu-close {
     display: grid;
     place-items: center;
-    border-radius: 5px;
+    border-radius: 50%;
     max-width: 3rem;
     min-width: 3rem;
     height: 3rem;
     font-size: 1rem;
-    border: 1px solid #333;
-    display: none;
+    background: var(--hover);
+    font-size: 1.5rem;
 }
-.header > div > .mobile-menu-dialog {
-    display: none;
+.header .mobile-menu {
+    display: none !important;
 }
-@media (max-width: 1200px) {
+.header .mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem 0 1rem;
+}
+.header .mobile-menu-header a {
+    font-family: var(--heading-font-family);
+    font-size: 1.2rem;
+}
+.header .mobile-menu-header a span {
+    font-family: inherit;
+    color: #9fc0ff;
+}
+/* Mobile menu popup */
+.mobile-menu-blur {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-image: linear-gradient(to top, hsla(230, 39%, 5%, 1), hsla(230, 39%, 10%, 1));
+    backdrop-filter: blur(5px);
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    transform: translateX(100%);
+    transition: transform .2s linear;
+    outline: 2px solid var(--hover);
+    outline-offset: -.5rem;
+}
+.mobile-menu-blur.show {
+    transform: translateX(0%);
+}
+.account-display-relative .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+.account-display-relative img {
+    border-radius: 50%;
+}
+.account-access-links {
+    display: flex;
+    gap: .5rem;
+    padding: 1rem;
+    flex-wrap: wrap;
+}
+.account-access-links * {
+    background: var(--hover);
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    flex-grow: 1;
+    text-align: center;
+}
+.account-access-links .log-out {
+    background: var(--hover) !important;
+}
+.username {
+    margin-top: 1rem;
+}
+@media (min-width: 870px) {
+    .mobile-menu-blur {
+        display: none !important;
+    }
+}
+@media(max-width: 870px) {
     .header > div > .mobile-menu {
-        display: grid;
+        display: grid !important;
     }
 }
 @media (max-width: 480px) {
-    .header {
-        flex-direction: column-reverse;
-        align-items: flex-start;
-    }
-    .header > div {
-        justify-content: space-between;
-        width: 100%;
-    }
-    .header > div > a {
-        padding: .5rem 1rem;
-        flex-grow: 1;
+    .header div .subscribe {
+        display: none !important;
     }
 }

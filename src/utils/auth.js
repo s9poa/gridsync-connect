@@ -66,3 +66,18 @@ export async function signOut() {
   const { error } = await supabase.auth.signOut();
   if (error) console.error("Sign-out error:", error.message);
 }
+
+export async function updateUser(updateObj) {
+    const { error } = await supabase
+        .from('profiles')
+        .update(updateObj)
+        .eq('id', (await supabase.auth.getUser()).data.user.id);
+
+    if (error) {
+        console.error("Username update error:", error.message);
+        return { error };
+    }
+
+    return { success: true };
+}
+

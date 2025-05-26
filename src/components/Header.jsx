@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 import { signIn, signUp, signOut, getUserWithProfile } from "../utils/auth";
 
@@ -9,6 +9,7 @@ function Header({ title }) {
     const [user, setUser] = useState(null);
     const menuRef = useRef(null);
     const lastTriggerRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -19,21 +20,19 @@ function Header({ title }) {
     }, []);
 
     useEffect(() => {
-        if (!menuOpen) return;
+        if (!menuOpen && !activeForm) return;
 
         const container = activeForm
-            ? menuRef.current.querySelector(`.${activeForm}-form`)
+            ? menuRef.current.querySelector(`.${styles[`${activeForm}-form`]}`)
             : menuRef.current;
 
-        const focusable = container.querySelectorAll("button, input, a");
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-
+        const focusable = container?.querySelectorAll("button, input, a");
+        const first = focusable?.[0];
+        const last = focusable?.[focusable.length - 1];
         first?.focus();
 
         const trapFocus = e => {
-            if (e.key === "Tab") {
-                if (focusable.length === 0) return;
+            if (e.key === "Tab" && focusable?.length) {
                 if (e.shiftKey && document.activeElement === first) {
                     e.preventDefault();
                     last.focus();
@@ -44,6 +43,7 @@ function Header({ title }) {
             } else if (e.key === "Escape") {
                 if (activeForm) {
                     setActiveForm(null);
+                    lastTriggerRef.current?.focus();
                 } else {
                     setMenuOpen(false);
                     lastTriggerRef.current?.focus();
@@ -54,6 +54,13 @@ function Header({ title }) {
         document.addEventListener("keydown", trapFocus);
         return () => document.removeEventListener("keydown", trapFocus);
     }, [menuOpen, activeForm]);
+
+    const handleFormBlurClick = e => {
+        if (e.target.classList.contains(styles["form-blur"])) {
+            setActiveForm(null);
+            lastTriggerRef.current?.focus();
+        }
+    };
 
     const handleSignIn = async (e) => {
         e.preventDefault();
@@ -88,10 +95,7 @@ function Header({ title }) {
         setUser(null);
         setMenuOpen(false);
         setActiveForm(null);
-    };
-
-    const handleFormBlurClick = e => {
-        if (e.target.classList.contains("form-blur")) setActiveForm(null);
+        navigate("/");
     };
 
     return (
@@ -119,7 +123,7 @@ function Header({ title }) {
                                 <p className={styles["account-title"]}>{user.title}</p>
                             </div>
                             <div className={styles["account-access-links"]}>
-                                <Link to="/" className={styles["manage-account"]}>Manage Account</Link>
+                                <Link to="/account" className={styles["manage-account"]}>Manage Account</Link>
                                 <button className={styles["log-out"]} onClick={handleLogout}>Log out</button>
                             </div>
                         </div>
@@ -131,53 +135,53 @@ function Header({ title }) {
                             </div>
 
                             {activeForm === "login" && (
-                                <div className="login-form form-blur" onClick={handleFormBlurClick}>
+                                <div className={`${styles["login-form"]} ${styles["form-blur"]}`} onClick={handleFormBlurClick}>
                                     <form onSubmit={handleSignIn} onClick={e => e.stopPropagation()}>
-                                        <div className="header">
+                                        <div className={styles.header}>
                                             <h2>Sign In</h2>
-                                            <button type="button" className="close-form" onClick={() => setActiveForm(null)} aria-label="Close log-in form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                                            <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); lastTriggerRef.current?.focus(); }} aria-label="Close log-in form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
                                         </div>
-                                        <div className="form-divider">
+                                        <div className={styles["form-divider"]}>
                                             <span></span>
-                                            <span className="label">Grid<span>Sync</span></span>
+                                            <span className={styles.label}>Grid<span>Sync</span></span>
                                             <span></span>
                                         </div>
-                                        <div className="input-grouping">
+                                        <div className={styles["input-grouping"]}>
                                             <label htmlFor="mobile-user-email">Email</label>
                                             <input type="email" placeholder="Your e-mail" id="mobile-user-email" required />
                                         </div>
-                                        <div className="input-grouping">
+                                        <div className={styles["input-grouping"]}>
                                             <label htmlFor="mobile-user-password">Password</label>
                                             <input type="password" placeholder="Your password" id="mobile-user-password" required />
                                         </div>
-                                        <button type="button" className="redirect" onClick={() => setActiveForm("signup")}>Don't have an account? <span>Sign up</span></button>
-                                        <button className="form-submission">Sign in</button>
+                                        <button type="button" className={styles.redirect} onClick={() => setActiveForm("signup")}>Don't have an account? <span>Sign up</span></button>
+                                        <button className={styles["form-submission"]}>Sign in</button>
                                     </form>
                                 </div>
                             )}
 
                             {activeForm === "signup" && (
-                                <div className="signup-form form-blur" onClick={handleFormBlurClick}>
+                                <div className={`${styles["signup-form"]} ${styles["form-blur"]}`} onClick={handleFormBlurClick}>
                                     <form onSubmit={handleSignUp} onClick={e => e.stopPropagation()}>
-                                        <div className="header">
+                                        <div className={styles.header}>
                                             <h2>Sign Up</h2>
-                                            <button type="button" className="close-form" onClick={() => setActiveForm(null)} aria-label="Close sign-up form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                                            <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); lastTriggerRef.current?.focus(); }} aria-label="Close sign-up form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
                                         </div>
-                                        <div className="form-divider">
+                                        <div className={styles["form-divider"]}>
                                             <span></span>
-                                            <span className="label">Grid<span>Sync</span></span>
+                                            <span className={styles.label}>Grid<span>Sync</span></span>
                                             <span></span>
                                         </div>
-                                        <div className="input-grouping">
+                                        <div className={styles["input-grouping"]}>
                                             <label htmlFor="mobile-user-email">Email</label>
                                             <input type="email" placeholder="Your e-mail" id="mobile-user-email" required />
                                         </div>
-                                        <div className="input-grouping">
+                                        <div className={styles["input-grouping"]}>
                                             <label htmlFor="mobile-user-password">Password</label>
                                             <input type="password" placeholder="Your password" id="mobile-user-password" required />
                                         </div>
-                                        <button type="button" className="redirect" onClick={() => setActiveForm("login")}>Already have an account? <span>Log in</span></button>
-                                        <button className="form-submission">Sign up</button>
+                                        <button type="button" className={styles.redirect} onClick={() => setActiveForm("login")}>Already have an account? <span>Log in</span></button>
+                                        <button className={styles["form-submission"]}>Sign up</button>
                                     </form>
                                 </div>
                             )}

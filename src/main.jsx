@@ -9,21 +9,22 @@ import { getUserWithProfile } from './utils/auth';
 import Home from './directory/Home.jsx';
 import LeftSidebar from './sidebar/LeftSidebar.jsx';
 import RightSidebar from './sidebar/RightSidebar.jsx';
+import Account from './directory/Account.jsx'; // Make sure this is the correct import path
 
 function MainApp() {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // NEW
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkSession = async () => {
       const userData = await getUserWithProfile();
       if (userData) setUser(userData);
-      setLoading(false); // ✅ done checking session
+      setLoading(false);
     };
     checkSession();
   }, []);
 
-  if (loading) return null; // ⏳ Don't render anything yet
+  if (loading) return null;
 
   return (
     <div id="main-layout">
@@ -31,13 +32,12 @@ function MainApp() {
         <LeftSidebar user={user} setUser={setUser} />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/account" element={<Account user={user} setUser={setUser} />} />
         </Routes>
         <RightSidebar />
       </BrowserRouter>
     </div>
   );
 }
-
-
 
 createRoot(document.getElementById('root')).render(<MainApp />);

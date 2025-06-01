@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { updateUser, getUserWithProfile } from "../utils/auth"; // adjust import if needed
-import styles from "./username-form.module.css";
+import { updatePassword } from "../utils/auth";
+import styles from "./password-form.module.css";
 
 import SuccessFormMessage from "../components/SuccessFormMessage";
 import ErrorFormMessage from "../components/ErrorFormMessage";
 
-function UsernameForm({ user, setUser, onClose }) {
+function PasswordForm({ onClose }) {
     const formRef = useRef(null);
-    const [newUsername, setNewUsername] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
 
@@ -44,19 +45,20 @@ function UsernameForm({ user, setUser, onClose }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setShowSuccess(false);
         setShowError(false);
-        const result = await updateUser({ username: newUsername });
+        setShowSuccess(false);
+
+        if (newPassword !== confirmPassword) {
+            setShowError(true);
+            return;
+        }
+
+        const result = await updatePassword(newPassword);
         if (result.error) {
             setShowError(true);
         } else {
-            const updated = await getUserWithProfile();
-            if (updated) setUser(updated);
             setShowSuccess(true);
-            setTimeout(() => {
-                onClose();
-                setShowSuccess(false);
-            }, 1500);
+            setTimeout(() => onClose(), 2000);
         }
     };
 
@@ -64,8 +66,10 @@ function UsernameForm({ user, setUser, onClose }) {
         <div className={styles["form-blur"]} onClick={handleFormClick} ref={formRef}>
             <form onSubmit={handleSubmit} onClick={e => e.stopPropagation()}>
                 <div className={styles.header}>
-                    <h2>Username</h2>
-                    <button type="button" className={styles["close-form"]} onClick={onClose} aria-label="Close username form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                    <h2>Password</h2>
+                    <button type="button" className={styles["close-form"]} onClick={onClose} aria-label="Close password form">
+                        <i className="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
                 </div>
                 <div className={styles["form-divider"]}>
                     <span></span>
@@ -73,16 +77,21 @@ function UsernameForm({ user, setUser, onClose }) {
                     <span></span>
                 </div>
                 <div className={styles["input-grouping"]}>
-                    <label htmlFor="change-username">Username</label>
-                    <input type="text" id="change-username" placeholder="Enter your new username" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
+                    <label htmlFor="change-password">Password</label>
+                    <input type="password" id="change-password" placeholder="Enter your new password" value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
                 </div>
-                {showSuccess && <SuccessFormMessage des="Your username has been updated successfully." />}
-                {showError && <ErrorFormMessage des="Username update failed. Please try again." />}
-                <p>Current username: <span className={styles["current-username"]}>{user?.username}</span></p>
+                <div className={styles["input-grouping"]}>
+                    <label htmlFor="confirm-change-password">Re-type Password</label>
+                    <input type="password" id="confirm-change-password" placeholder="Confirm your new password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required />
+                </div>
+
+                {showSuccess && <SuccessFormMessage des="Your password has been updated successfully." />}
+                {showError && <ErrorFormMessage des="Password update failed. Please try again." />}
+
                 <button className={styles["form-submission"]}>Update</button>
             </form>
         </div>
     );
 }
 
-export default UsernameForm;
+export default PasswordForm;

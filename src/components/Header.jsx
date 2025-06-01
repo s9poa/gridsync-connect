@@ -3,10 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 import { signIn, signUp, signOut, getUserWithProfile } from "../utils/auth";
 
+import SuccessFormMessage from "../components/SuccessFormMessage";
+import ErrorFormMessage from "../components/ErrorFormMessage";
+
 function Header({ title }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [activeForm, setActiveForm] = useState(null);
     const [user, setUser] = useState(null);
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [showError, setShowError] = useState(false);
     const menuRef = useRef(null);
     const lastTriggerRef = useRef(null);
     const navigate = useNavigate();
@@ -64,29 +69,41 @@ function Header({ title }) {
 
     const handleSignIn = async (e) => {
         e.preventDefault();
+        setShowSuccess(false);
+        setShowError(false);
         const email = e.target.elements["mobile-user-email"].value;
         const password = e.target.elements["mobile-user-password"].value;
         const result = await signIn(email, password);
         if (result.error) {
-            alert("Login failed: " + result.error);
+            setShowError(true);
         } else {
             const userData = await getUserWithProfile();
             if (userData) setUser(userData);
-            setActiveForm(null);
+            setShowSuccess(true);
+            setTimeout(() => {
+                setActiveForm(null);
+                setShowSuccess(false);
+            }, 1500);
         }
     };
 
     const handleSignUp = async (e) => {
         e.preventDefault();
+        setShowSuccess(false);
+        setShowError(false);
         const email = e.target.elements["mobile-user-email"].value;
         const password = e.target.elements["mobile-user-password"].value;
         const result = await signUp(email, password);
         if (result.error) {
-            alert("Sign-up failed: " + result.error);
+            setShowError(true);
         } else {
             const userData = await getUserWithProfile();
             if (userData) setUser(userData);
-            setActiveForm(null);
+            setShowSuccess(true);
+            setTimeout(() => {
+                setActiveForm(null);
+                setShowSuccess(false);
+            }, 1500);
         }
     };
 
@@ -154,6 +171,8 @@ function Header({ title }) {
                                             <label htmlFor="mobile-user-password">Password</label>
                                             <input type="password" placeholder="Your password" id="mobile-user-password" required />
                                         </div>
+                                        {showSuccess && <SuccessFormMessage des="You're now signed into your account." />}
+                                        {showError && <ErrorFormMessage des="Sign in failed. Please check your credentials and try again." />}
                                         <button type="button" className={styles.redirect} onClick={() => setActiveForm("signup")}>Don't have an account? <span>Sign up</span></button>
                                         <button className={styles["form-submission"]}>Sign in</button>
                                     </form>
@@ -180,6 +199,8 @@ function Header({ title }) {
                                             <label htmlFor="mobile-user-password">Password</label>
                                             <input type="password" placeholder="Your password" id="mobile-user-password" required />
                                         </div>
+                                        {showSuccess && <SuccessFormMessage des="Your account has been created successfully." />}
+                                        {showError && <ErrorFormMessage des="Sign up failed. Please try again." />}
                                         <button type="button" className={styles.redirect} onClick={() => setActiveForm("login")}>Already have an account? <span>Log in</span></button>
                                         <button className={styles["form-submission"]}>Sign up</button>
                                     </form>

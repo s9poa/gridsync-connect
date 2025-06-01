@@ -3,9 +3,14 @@ import { Link, useNavigate } from "react-router";
 import { signIn, signUp, signOut, getUserWithProfile } from "../utils/auth";
 import styles from "./left-sidebar.module.css";
 
+import SuccessFormMessage from "../components/SuccessFormMessage";
+import ErrorFormMessage from "../components/ErrorFormMessage";
+
 function LeftSidebar({ user, setUser }) {
     const [activeForm, setActiveForm] = useState(null);
     const [showAccountNav, setShowAccountNav] = useState(false);
+    const [signupResult, setSignupResult] = useState(null);
+    const [loginResult, setLoginResult] = useState(null);
     const formRef = useRef(null);
     const formTriggerRef = useRef(null);
     const navigate = useNavigate();
@@ -48,29 +53,39 @@ function LeftSidebar({ user, setUser }) {
 
     const handleSignup = async (e) => {
         e.preventDefault();
+        setSignupResult(null);
         const email = e.target.elements["user-email"].value;
         const password = e.target.elements["user-password"].value;
         const result = await signUp(email, password);
         if (result.error) {
-            alert("Sign-up failed: " + result.error);
+            setSignupResult("error");
         } else {
             const userData = await getUserWithProfile();
             if (userData) setUser(userData);
-            setActiveForm(null);
+            setSignupResult("success");
+            setTimeout(() => {
+                setActiveForm(null);
+                setSignupResult(null);
+            }, 2000);
         }
     };
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setLoginResult(null);
         const email = e.target.elements["user-email"].value;
         const password = e.target.elements["user-password"].value;
         const result = await signIn(email, password);
         if (result.error) {
-            alert("Login failed: " + result.error);
+            setLoginResult("error");
         } else {
             const userData = await getUserWithProfile();
             if (userData) setUser(userData);
-            setActiveForm(null);
+            setLoginResult("success");
+            setTimeout(() => {
+                setActiveForm(null);
+                setLoginResult(null);
+            }, 2000);
         }
     };
 
@@ -86,7 +101,7 @@ function LeftSidebar({ user, setUser }) {
             <Link to="/" className={styles.logo}>Grid<span>Sync</span></Link>
             <div className={styles["beta-divider"]}>
                 <span className={styles.divider}></span>
-                <span>Beta</span>
+                <span>Connect</span>
                 <span className={styles.divider}></span>
             </div>
 
@@ -94,7 +109,7 @@ function LeftSidebar({ user, setUser }) {
                 <div className={styles["account-display-relative"]}>
                     <button className={styles["account-display"]} aria-label="open profile navigation" onClick={() => setShowAccountNav(!showAccountNav)}>
                         <div className={styles["account-info"]}>
-                            <img src="/placeholder.png" width="60" height="60" alt="" />
+                            <img src={user?.profile_picture || "/placeholder.png"} width="60" height="60" alt="profile image" />
                             <div>
                                 <h2 className={styles.username}>{user.username}</h2>
                                 <p className={styles["account-title"]}>{user.title}</p>
@@ -124,7 +139,7 @@ function LeftSidebar({ user, setUser }) {
                         <form onSubmit={handleLogin} onClick={e => e.stopPropagation()}>
                             <div className={styles.header}>
                                 <h2>Sign In</h2>
-                                <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); formTriggerRef.current?.focus(); }} aria-label="Close log-in form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                                <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); formTriggerRef.current?.focus(); setLoginResult(null); }} aria-label="Close log-in form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
                             </div>
                             <div className={styles["form-divider"]}>
                                 <span></span>
@@ -139,7 +154,9 @@ function LeftSidebar({ user, setUser }) {
                                 <label htmlFor="user-password">Password</label>
                                 <input type="password" placeholder="Your password" id="user-password" required />
                             </div>
-                            <button type="button" className={styles.redirect} onClick={() => setActiveForm("signup")}>Don't have an account? <span>Sign up</span></button>
+                            {loginResult === "success" && <SuccessFormMessage des="You're now signed into your account." />}
+                            {loginResult === "error" && <ErrorFormMessage des="Sign in failed. Please check your credentials and try again." />}
+                            <button type="button" className={styles.redirect} onClick={() => { setActiveForm("signup"); setLoginResult(null); }}>Don't have an account? <span>Sign up</span></button>
                             <button className={styles["form-submission"]}>Sign in</button>
                         </form>
                     </div>
@@ -150,7 +167,7 @@ function LeftSidebar({ user, setUser }) {
                         <form onSubmit={handleSignup} onClick={e => e.stopPropagation()}>
                             <div className={styles.header}>
                                 <h2>Sign Up</h2>
-                                <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); formTriggerRef.current?.focus(); }} aria-label="Close sign-up form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                                <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); formTriggerRef.current?.focus(); setSignupResult(null); }} aria-label="Close sign-up form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
                             </div>
                             <div className={styles["form-divider"]}>
                                 <span></span>
@@ -165,7 +182,9 @@ function LeftSidebar({ user, setUser }) {
                                 <label htmlFor="user-password">Password</label>
                                 <input type="password" placeholder="Your password" id="user-password" required />
                             </div>
-                            <button type="button" className={styles.redirect} onClick={() => setActiveForm("login")}>Already have an account? <span>Log in</span></button>
+                            {signupResult === "success" && <SuccessFormMessage des="Your account has been created successfully." />}
+                            {signupResult === "error" && <ErrorFormMessage des="Sign up failed. Please try again." />}
+                            <button type="button" className={styles.redirect} onClick={() => { setActiveForm("login"); setSignupResult(null); }}>Already have an account? <span>Log in</span></button>
                             <button className={styles["form-submission"]}>Sign up</button>
                         </form>
                     </div>

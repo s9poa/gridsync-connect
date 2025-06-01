@@ -44,24 +44,6 @@ export async function signIn(email, password) {
     return { success: true };
 }
 
-export async function getUserWithProfile() {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session?.user) return null;
-
-    const { data, error } = await supabase.from('profiles').select('username, title').eq('id', session.user.id).single();
-    if (error) {
-        console.error("Profile fetch error:", error.message);
-        return null;
-    }
-
-    return {
-        id: session.user.id,
-        email: session.user.email,
-        username: data.username,
-        title: data.title
-    };
-}
-
 export async function signOut() {
   const { error } = await supabase.auth.signOut();
   if (error) console.error("Sign-out error:", error.message);
@@ -80,4 +62,58 @@ export async function updateUser(updateObj) {
 
     return { success: true };
 }
+
+export async function updatePassword(newPassword) {
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) {
+        console.error("Password update error:", error.message);
+        return { error: error.message };
+    }
+    return { success: true };
+}
+
+export async function getUserWithProfile() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.user) return null;
+
+    const { data, error } = await supabase
+        .from('profiles')
+        .select('username, title, profile_picture')
+        .eq('id', session.user.id)
+        .single();
+
+    if (error) {
+        console.error("Profile fetch error:", error.message);
+        return null;
+    }
+
+    return {
+        id: session.user.id,
+        email: session.user.email,
+        username: data.username,
+        title: data.title,
+        profile_picture: data.profile_picture || null
+    };
+}
+
+export async function updateProfilePicture(imagePath) {
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (userError || !user) {
+        console.error("Auth error:", userError?.message);
+        return { error: userError?.message || "No user found" };
+    }
+
+    const { error } = await supabase
+        .from('profiles')
+        .update({ profile_picture: imagePath })
+        .eq('id', user.id);
+
+    if (error) {
+        console.error("Profile picture update error:", error.message);
+        return { error: error.message };
+    }
+
+    return { success: true };
+}
+
 

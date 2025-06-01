@@ -1,18 +1,14 @@
 .banner {
     padding: 1rem;
-    background: #0e1120;
-    background-image: radial-gradient(hsl(230, 39%, 11%) 1px, transparent 1px);
-    background-size: 10px 10px;
     margin: 0 1rem;
     border-radius: 20px;
 }
 .banner > .top {
     display: flex;
-    align-items: center;
     gap: 1rem;
 }
 .banner img {
-    border-radius: 50%;
+    border-radius: 20px;
 }
 .banner .username {
     font-weight: 500;
@@ -28,14 +24,20 @@
     margin-top: 1rem;
 }
 .banner > .bottom button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
     padding: .5rem 1rem;
-    border-radius: 3px;
+    border-radius: 100vw;
     background: hsla(230, 39%, 30%, .25);
     outline: 1px solid hsla(230, 39%, 30%, .5);
 }
-.banner > .bottom button.delete-account {
-    background: hsla(0, 100%, 50%, .25);
-    outline: 1px solid hsla(0, 100%, 50%, .5);
+.banner > .bottom button.log-out {
+    color: hsl(0, 97%, 70%);
+}
+.banner > .bottom button i {
+     color: inherit;
 }
 
 @media (max-width: 480px) {

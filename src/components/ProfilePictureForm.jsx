@@ -1,21 +1,28 @@
 import { useEffect, useRef, useState } from "react";
-import { updateUser, getUserWithProfile } from "../utils/auth"; // adjust import if needed
-import styles from "./username-form.module.css";
+import { updateProfilePicture, getUserWithProfile } from "../utils/auth";
+import styles from "./profile-picture-form.module.css";
 
 import SuccessFormMessage from "../components/SuccessFormMessage";
 import ErrorFormMessage from "../components/ErrorFormMessage";
 
-function UsernameForm({ user, setUser, onClose }) {
+function ProfilePictureForm({ setUser, onClose }) {
     const formRef = useRef(null);
-    const [newUsername, setNewUsername] = useState("");
+    const [selected, setSelected] = useState(null);
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
+
+    const profileImages = [
+        "/profile-picture-1.webp",
+        "/profile-picture-2.webp",
+        "/profile-picture-3.webp",
+        "/profile-picture-4.webp",
+        "/profile-picture-5.avif"
+    ];
 
     useEffect(() => {
         if (!formRef.current) return;
 
-        const container = formRef.current;
-        const focusable = container.querySelectorAll("button, input, a");
+        const focusable = formRef.current.querySelectorAll("button, input, a");
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
         first?.focus();
@@ -44,9 +51,12 @@ function UsernameForm({ user, setUser, onClose }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setShowSuccess(false);
-        setShowError(false);
-        const result = await updateUser({ username: newUsername });
+        if (!selected) {
+            setShowError(true);
+            return;
+        }
+
+        const result = await updateProfilePicture(selected);
         if (result.error) {
             setShowError(true);
         } else {
@@ -55,7 +65,6 @@ function UsernameForm({ user, setUser, onClose }) {
             setShowSuccess(true);
             setTimeout(() => {
                 onClose();
-                setShowSuccess(false);
             }, 1500);
         }
     };
@@ -64,25 +73,34 @@ function UsernameForm({ user, setUser, onClose }) {
         <div className={styles["form-blur"]} onClick={handleFormClick} ref={formRef}>
             <form onSubmit={handleSubmit} onClick={e => e.stopPropagation()}>
                 <div className={styles.header}>
-                    <h2>Username</h2>
-                    <button type="button" className={styles["close-form"]} onClick={onClose} aria-label="Close username form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                    <h2>Profile Image</h2>
+                    <button type="button" className={styles["close-form"]} onClick={onClose} aria-label="Close profile image form">
+                        <i className="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
                 </div>
                 <div className={styles["form-divider"]}>
                     <span></span>
                     <span className={styles.label}>Grid<span>Sync</span></span>
                     <span></span>
                 </div>
-                <div className={styles["input-grouping"]}>
-                    <label htmlFor="change-username">Username</label>
-                    <input type="text" id="change-username" placeholder="Enter your new username" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />
+                <div className={styles["grid"]}>
+                    {profileImages.map(img => (
+                        <button
+                            type="button"
+                            key={img}
+                            onClick={() => setSelected(img)}
+                            className={selected === img ? styles["selected"] : ""}
+                        >
+                            <img src={img} alt="Profile option" width="150" height="150" />
+                        </button>
+                    ))}
                 </div>
-                {showSuccess && <SuccessFormMessage des="Your username has been updated successfully." />}
-                {showError && <ErrorFormMessage des="Username update failed. Please try again." />}
-                <p>Current username: <span className={styles["current-username"]}>{user?.username}</span></p>
+                {showSuccess && <SuccessFormMessage des="Your profile picture has been updated successfully." />}
+                {showError && <ErrorFormMessage des="Profile picture update failed. Please try again." />}
                 <button className={styles["form-submission"]}>Update</button>
             </form>
         </div>
     );
 }
 
-export default UsernameForm;
+export default ProfilePictureForm;

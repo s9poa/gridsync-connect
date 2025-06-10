@@ -116,4 +116,9 @@ export async function updateProfilePicture(imagePath) {
     return { success: true };
 }
 
+export async function getAccountCreatedAt() {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error || !user) return null;
+    return { created_at: user.created_at };
+}
 

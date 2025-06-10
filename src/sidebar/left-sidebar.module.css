@@ -49,6 +49,9 @@
     margin-top: 1rem;
     width: 100%;
 }
+.account-display.active {
+    background: var(--active) !important;
+}
 .account-display-nav {
     position: absolute;
     top: 0;
@@ -70,6 +73,8 @@
 }
 .account-display img {
     border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
 }
 .account-display .username {
     font-size: 1rem;
@@ -80,6 +85,30 @@
 }
 .account-display > i {
     font-size: .6rem;
+}
+
+/* Primary Links */
+.primary-links {
+    margin-top: 1rem;
+}
+.primary-links > a {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    max-height: 3rem;
+    min-height: 3rem;
+    width: 100%;
+    padding: 0 1rem;
+}
+.primary-links > a.active {
+    background: var(--active) !important;
+}
+.primary-links > a:hover {
+    background: var(--hover);
+}
+.primary-links > a > i {
+    width: 60px;
+    text-align: center;
 }
 
 /* Forms */
@@ -95,6 +124,7 @@
     padding: 1rem;
     display: grid;
     place-items: center;
+    z-index: 2;
 }
 .form-blur form {
     display: flex;

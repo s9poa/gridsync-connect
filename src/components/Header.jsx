@@ -135,7 +135,7 @@ function Header({ title }) {
                     {user ? (
                         <div className={styles["account-display-relative"]}>
                             <div className={styles.profile}>
-                                <img src="/placeholder.png" width="60" height="60" alt="" />
+                                <img src={user?.profile_picture || "/placeholder.png"} width="60" height="60" alt="profile image" />
                                 <h2 className={styles.username}>{user.username}</h2>
                                 <p className={styles["account-title"]}>{user.title}</p>
                             </div>

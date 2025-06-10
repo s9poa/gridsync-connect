@@ -7,6 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { getUserWithProfile } from './utils/auth';
 
 import Home from './directory/Home.jsx';
+import Library from './directory/Library.jsx';
+import Store from './directory/Store.jsx';
+import Subscribe from './directory/Subscribe.jsx';
 import LeftSidebar from './sidebar/LeftSidebar.jsx';
 import RightSidebar from './sidebar/RightSidebar.jsx';
 import Account from './directory/Account.jsx'; // Make sure this is the correct import path
@@ -32,6 +35,9 @@ function MainApp() {
         <LeftSidebar user={user} setUser={setUser} />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/subscribe" element={<Subscribe />} />
           <Route path="/account" element={<Account user={user} setUser={setUser} />} />
         </Routes>
         <RightSidebar />

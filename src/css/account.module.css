@@ -1,27 +1,55 @@
 .banner {
-    padding: 1rem;
-    margin: 0 1rem;
-    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2.5rem 1rem;
 }
 .banner > .top {
     display: flex;
     gap: 1rem;
 }
+.banner > .top > div {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
 .banner img {
     border-radius: 20px;
+    object-fit: cover;
+    object-position: center;
 }
 .banner .username {
     font-weight: 500;
+    font-family: "Assistant", sans-serif;
 }
 .banner .account-title {
     font-size: 1.2rem;
     color: var(--gray);
 }
+.banner .account-title > span {
+    background: #833AB4;
+    background: linear-gradient(to right, #833AB4 0%, #FD1D1D 50%, #FCB045 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+}
+.banner .account-created {
+    font-size: .8rem;
+    padding: .5rem 1rem;
+    border-radius: 100vw;
+    background: rgba(0,0,0,.5);
+    margin-top: .5rem;
+    color: var(--gray);
+}
+.banner .account-created i {
+    color: inherit;
+    margin-right: .5rem;
+}
 .banner > .bottom {
     display: flex;
     gap: .5rem;
     flex-wrap: wrap;
-    margin-top: 1rem;
 }
 .banner > .bottom button {
     display: flex;
@@ -35,11 +63,70 @@
 }
 .banner > .bottom button.log-out {
     color: hsl(0, 97%, 70%);
+
 }
-.banner > .bottom button i {
+.banner > .bottom button.log-out i {
      color: inherit;
 }
-
+/* achievements section */
+.achievements {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.achievements > h2 {
+    margin: 0 1rem;
+}
+.achievements .grid {
+    --grid-min-col-size: 200px;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-min-col-size), 100%), 1fr));
+    gap: 1rem;
+    padding: 0 1rem;
+}
+.achievements .grid > .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--hover);
+    border-radius: 20px;
+    position: relative;
+}
+.achievements .grid > .item.active {
+        border: 1px solid var(--highlight);
+        background: var(--hover);
+}
+.achievements .grid > .item .unlocked-status, .achievements .grid > .item .locked-status {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    color: limegreen;
+    font-size: .8rem;
+}
+.achievements .grid > .item .locked-status {
+    color: var(--gray);
+}
+.achievements .grid > .item .unlockable-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.achievements .grid > .item .how-to-obtain {
+    font-size: .8rem;
+    text-align: center;
+    color: var(--gray);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+}
 @media (max-width: 480px) {
     .banner > .top {
         flex-direction: column;
@@ -49,4 +136,11 @@
     .banner > .bottom button {
         flex-grow: 1;
     }
+  .achievements .grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: auto;
+    gap: 1rem;
+    overflow-x: auto;
+  }
 }

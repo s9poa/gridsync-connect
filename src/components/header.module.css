@@ -62,6 +62,7 @@
     transition: transform .2s linear;
     outline: 2px solid var(--hover);
     outline-offset: -.5rem;
+    z-index: 1;
 }
 .mobile-menu-blur.show {
     transform: translateX(0%);
@@ -74,6 +75,8 @@
 }
 .account-display-relative img {
     border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
 }
 .account-access-links {
     display: flex;
@@ -107,6 +110,7 @@
     padding: 1rem;
     display: grid;
     place-items: center;
+    z-index: 2;
 }
 .form-blur form {
     display: flex;

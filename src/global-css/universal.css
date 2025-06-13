@@ -59,7 +59,7 @@ footer {
 }
 
 /*---- Scrollbar ----*/
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
    display: none;
 }
 ::-webkit-scrollbar-track {
@@ -67,7 +67,7 @@ footer {
 }
 ::-webkit-scrollbar-thumb {
     display: none;
-}
+} */
 
 /*---- Layout ----*/
 .grid-auto-fill {
@@ -102,6 +102,7 @@ footer {
 }
 main {
     width: 100%;
+    overflow: hidden;
 }
 .login-plus-signup {
     display: flex;

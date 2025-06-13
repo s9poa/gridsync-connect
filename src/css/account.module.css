@@ -60,6 +60,10 @@
     border-radius: 100vw;
     background: hsla(230, 39%, 30%, .25);
     outline: 1px solid hsla(230, 39%, 30%, .5);
+
+    &:focus {
+        background: var(--highlight);
+    }
 }
 .banner > .bottom button.log-out {
     color: hsl(0, 97%, 70%);

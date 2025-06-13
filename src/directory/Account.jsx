@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from '../css/account.module.css';
 import Header from "../components/Header";
@@ -13,6 +13,10 @@ function Account({ user, setUser }) {
     const [showProfilePicForm, setShowProfilePicForm] = useState(false);
     const [accountCreatedAt, setAccountCreatedAt] = useState(null);
     const [timeNow, setTimeNow] = useState(Date.now());
+
+    const usernameFormTriggerRef = useRef();
+    const passwordFormTriggerRef = useRef();
+    const profilePicFormTriggerRef = useRef();
 
     const navigate = useNavigate();
 
@@ -86,7 +90,7 @@ function Account({ user, setUser }) {
             <div className={styles.banner}>
                 <h2>Account Details</h2>
                 <div className={styles.top}>
-                    <button className={styles["edit-profile-picture"]} onClick={() => setShowProfilePicForm(true)}>
+                    <button ref={profilePicFormTriggerRef} className={styles["edit-profile-picture"]} onClick={() => setShowProfilePicForm(true)}>
                         <img src={user?.profile_picture || "/placeholder.png"} alt="profile image" width="150" height="150" />
                     </button>
                     <div>
@@ -100,8 +104,8 @@ function Account({ user, setUser }) {
                     </div>
                 </div>
                 <div className={styles.bottom}>
-                    <button className={styles["edit-username"]} onClick={() => setShowUsernameForm(true)}>Change Username</button>
-                    <button className={styles["edit-username"]} onClick={() => setShowPasswordForm(true)}>Change Password</button>
+                    <button ref={usernameFormTriggerRef} className={styles["edit-username"]} onClick={() => setShowUsernameForm(true)}>Change Username</button>
+                    <button ref={passwordFormTriggerRef} className={styles["edit-username"]} onClick={() => setShowPasswordForm(true)}>Change Password</button>
                     <button className={styles["log-out"]} onClick={handleLogout}>
                         <i className="fa-solid fa-arrow-right-from-bracket fa-rotate-180" aria-hidden="true"></i> Log out
                     </button>
@@ -146,9 +150,9 @@ function Account({ user, setUser }) {
                 </div>
             </div>
 
-            {showUsernameForm && <UsernameForm user={user} setUser={setUser} onClose={() => setShowUsernameForm(false)} />}
-            {showPasswordForm && <PasswordForm onClose={() => setShowPasswordForm(false)} />}
-            {showProfilePicForm && <ProfilePictureForm setUser={setUser} onClose={() => setShowProfilePicForm(false)} />}
+            {showUsernameForm && <UsernameForm user={user} setUser={setUser} onClose={() => setShowUsernameForm(false)} formTriggerRef={usernameFormTriggerRef} />}
+            {showPasswordForm && <PasswordForm onClose={() => setShowPasswordForm(false)} formTriggerRef={passwordFormTriggerRef} />}
+            {showProfilePicForm && <ProfilePictureForm setUser={setUser} onClose={() => setShowProfilePicForm(false)} formTriggerRef={profilePicFormTriggerRef} />}
         </main>
     );
 }

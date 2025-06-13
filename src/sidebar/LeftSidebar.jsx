@@ -134,8 +134,8 @@ function LeftSidebar({ user, setUser }) {
                     </button>
                     {showAccountNav && (
                         <div className={styles["account-display-nav"]}>
-                            <NavLink to="/account">Manage Account</NavLink>
-                            <button id="log-out-of-account" onClick={handleLogout}>Log out</button>
+                            <NavLink to="/account"><i className="fa-solid fa-circle-user" aria-hidden="true"></i> Manage Account</NavLink>
+                            <button className={styles["log-out-of-account"]} id="log-out-of-account" onClick={handleLogout}><i className="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Log out</button>
                         </div>
                     )}
                 </div>
@@ -156,8 +156,61 @@ function LeftSidebar({ user, setUser }) {
             </nav>
 
             <div ref={formRef}>
-                {/* Login and Signup Forms stay unchanged */}
-                {/* ... */}
+                {activeForm === "login" && (
+                    <div className={`${styles["login-form"]} ${styles["form-blur"]} form-blur`} onClick={handleFormBlurClick}>
+                        <form onSubmit={handleLogin} onClick={e => e.stopPropagation()}>
+                            <div className={styles.header}>
+                                <h2>Sign In</h2>
+                                <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); formTriggerRef.current?.focus(); setLoginResult(null); }} aria-label="Close log-in form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                            </div>
+                            <div className={styles["form-divider"]}>
+                                <span></span>
+                                <span className={styles.label}>Grid<span>Sync</span></span>
+                                <span></span>
+                            </div>
+                            <div className={styles["input-grouping"]}>
+                                <label htmlFor="user-email">Email</label>
+                                <input type="email" placeholder="Your e-mail" id="user-email" required />
+                            </div>
+                            <div className={styles["input-grouping"]}>
+                                <label htmlFor="user-password">Password</label>
+                                <input type="password" placeholder="Your password" id="user-password" required />
+                            </div>
+                            {loginResult === "success" && <SuccessFormMessage des="You're now signed into your account." />}
+                            {loginResult === "error" && <ErrorFormMessage des="Sign in failed. Please check your credentials and try again." />}
+                            <button type="button" className={styles.redirect} onClick={() => { setActiveForm("signup"); setLoginResult(null); }}>Don't have an account? <span>Sign up</span></button>
+                            <button className={styles["form-submission"]}>Sign in</button>
+                        </form>
+                    </div>
+                )}
+
+                {activeForm === "signup" && (
+                    <div className={`${styles["signup-form"]} ${styles["form-blur"]} form-blur`} onClick={handleFormBlurClick}>
+                        <form onSubmit={handleSignup} onClick={e => e.stopPropagation()}>
+                            <div className={styles.header}>
+                                <h2>Sign Up</h2>
+                                <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); formTriggerRef.current?.focus(); setSignupResult(null); }} aria-label="Close sign-up form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                            </div>
+                            <div className={styles["form-divider"]}>
+                                <span></span>
+                                <span className={styles.label}>Grid<span>Sync</span></span>
+                                <span></span>
+                            </div>
+                            <div className={styles["input-grouping"]}>
+                                <label htmlFor="user-email">Email</label>
+                                <input type="email" placeholder="Your e-mail" id="user-email" required />
+                            </div>
+                            <div className={styles["input-grouping"]}>
+                                <label htmlFor="user-password">Password</label>
+                                <input type="password" placeholder="Your password" id="user-password" required />
+                            </div>
+                            {signupResult === "success" && <SuccessFormMessage des="Your account has been created successfully." />}
+                            {signupResult === "error" && <ErrorFormMessage des="Sign up failed. Please try again." />}
+                            <button type="button" className={styles.redirect} onClick={() => { setActiveForm("login"); setSignupResult(null); }}>Already have an account? <span>Log in</span></button>
+                            <button className={styles["form-submission"]}>Sign up</button>
+                        </form>
+                    </div>
+                )}
             </div>
         </aside>
     )

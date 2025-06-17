@@ -1,3 +1,9 @@
+.container {
+    transition: transform .2s ease-in-out;
+}
+.container:hover, .container:active, .container:focus-visible {
+    transform: translateY(-5px);
+}
 .container > img {
     width: 100%;
     height: auto;
@@ -22,4 +28,5 @@
     padding: 1rem;
     background: var(--hover);
     border-radius: 0 0 10px 10px;
+    position: relative;
 }

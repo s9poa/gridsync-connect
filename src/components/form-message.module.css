@@ -1,13 +1,13 @@
 .form-message {
-    padding: .5rem;
+    padding: .5rem 1rem;
     border-radius: 5px;
     text-align: center;
 }
 .form-message.success {
-    background: hsla(120, 61%, 50%, .15);
-    outline: 1px solid hsla(120, 61%, 50%, .3);
+    background: hsl(120, 61%, 10%);
+    outline: 1px solid hsla(120, 61%, 50%, .5);
 }
 .form-message.error {
-    background: hsla(0, 100%, 50%, .25);
+    background: hsl(0, 100%, 10%);
     outline: 1px solid hsla(0, 100%, 50%, .5);
 }

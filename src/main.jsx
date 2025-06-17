@@ -12,7 +12,7 @@ import Store from './directory/Store.jsx';
 import Subscribe from './directory/Subscribe.jsx';
 import LeftSidebar from './sidebar/LeftSidebar.jsx';
 import RightSidebar from './sidebar/RightSidebar.jsx';
-import Account from './directory/Account.jsx'; // Make sure this is the correct import path
+import Account from './directory/Account.jsx';
 
 function MainApp() {
   const [user, setUser] = useState(null);
@@ -35,8 +35,8 @@ function MainApp() {
         <LeftSidebar user={user} setUser={setUser} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/library" element={<Library />} />
-          <Route path="/store" element={<Store />} />
+          <Route path="/library" element={<Library user={user} />} />
+          <Route path="/store" element={<Store user={user} />} />
           <Route path="/subscribe" element={<Subscribe />} />
           <Route path="/account" element={<Account user={user} setUser={setUser} />} />
         </Routes>

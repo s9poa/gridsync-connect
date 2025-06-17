@@ -122,3 +122,65 @@ export async function getAccountCreatedAt() {
     return { created_at: user.created_at };
 }
 
+export async function addFavorite({ game_id, title, image_path, price, type }) {
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (userError || !user) {
+        console.error("User not found:", userError?.message);
+        return { error: "Not signed in" };
+    }
+
+    const { error } = await supabase.from('favorites').insert({
+        user_id: user.id,
+        game_id,
+        title,
+        image_path,
+        price,
+        type
+    });
+
+    if (error) {
+        console.error("Insert error:", error.message);
+        return { error: error.message };
+    }
+
+    return { success: true };
+}
+
+export async function getFavorites() {
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (userError || !user) return [];
+
+  const { data, error } = await supabase
+    .from('favorites')
+    .select('id, title, image_path')
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error("Error fetching favorites:", error.message);
+    return [];
+  }
+
+  return data;
+}
+
+export async function removeFavorite(favoriteId) {
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (userError || !user) {
+    console.error("User not found:", userError?.message);
+    return { error: "Not signed in" };
+  }
+
+  const { error } = await supabase
+    .from('favorites')
+    .delete()
+    .eq('id', favoriteId)
+    .eq('user_id', user.id);
+
+  if (error) {
+    console.error("Delete favorite error:", error);
+    return { error: error.message };
+  }
+
+  return { success: true };
+}

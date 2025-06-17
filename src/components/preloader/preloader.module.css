@@ -1,0 +1,58 @@
+.preloader {
+    opacity: 1;
+    padding: 1rem;
+    transition: opacity 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fadeOut {
+    opacity: 0;
+    pointer-events: none;
+}
+.preloader-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 12px;
+    margin: 9px;
+    transform-origin: center;
+    display: flex;
+    animation: loadingPulse 1.25s infinite linear;
+}
+.preloader-dot.one {
+    animation-delay: 0s;
+    background: hsl(350, 97%, 90%);
+}
+.preloader-dot.two {
+    animation-delay: 0.1s;
+    background: hsl(350, 97%, 75%);
+}
+.preloader-dot.three {
+    animation-delay: 0.3s;
+    background: hsl(350, 97%, 60%);
+}
+.preloader-dot.four {
+    animation-delay: 0.4s;
+    background: hsl(350, 97%, 45%);
+}
+.preloader-dot.five {
+    animation-delay: 0.5s;
+    background: hsl(350, 97%, 30%);
+}
+@keyframes loadingPulse {
+    0% {
+        transform: scale(1);
+    }
+    10% {
+        transform: scale(1.5);
+    }
+    20% {
+        transform: scale(2);
+    }
+    30% {
+        transform: scale(1.5);
+    }
+    40% {
+        transform: scale(1);
+    }
+}

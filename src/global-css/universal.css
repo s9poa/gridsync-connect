@@ -32,6 +32,7 @@ p, a {
     line-height: 1.5;
     word-wrap: break-word; /* Add this to wrap long words */
     white-space: pre-wrap; /* Add this to preserve whitespace and wrap text */
+    text-wrap: balance;
 }
 li {
     list-style-position: inside;
@@ -104,6 +105,42 @@ main {
     width: 100%;
     overflow: hidden;
 }
+.main-content-section {
+    margin-block: 5rem;
+    max-width: 110rem;
+    width: 100%;
+    margin: 5rem auto;
+}
+.main-content-section > .main-content-section-title {
+    padding: 0 1rem;
+    font-weight: 500;
+}
+.main-content-section .main-content-section-grid {
+    padding: 1rem;
+    overflow: auto;
+}
+.main-content-section .main-content-section-grid.grid-4 {
+    --grid-min-col-size: 300px;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));
+    gap: 1rem;
+}
+.main-content-section .main-content-section-grid.grid-6 {
+    --grid-min-col-size: 225px;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));
+    gap: 1rem;
+}
+@media (max-width: 480px) {
+    .main-content-section .main-content-section-grid {
+        display: flex !important;
+    }
+    .main-content-section .main-content-section-grid > .main-content-child {
+        min-width: 250px;
+    }
+}
 .login-plus-signup {
     display: flex;
     gap: 1rem;
@@ -122,3 +159,37 @@ main {
     background-image: linear-gradient(90deg,#4A00E0, #8E2DE2);
 }
 
+.add-to-library-btn {
+    max-width: 3rem;
+    min-width: 3rem;
+    height: 3rem;
+    border-radius: 100vw;
+    background: hsl(225, 73%, 57%);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    outline: 2px solid hsl(225, 73%, 33%);
+    outline-offset: -4px;
+    transition: background .2s ease-in-out, transform .5ms linear;
+    display: none;
+
+    &:hover {
+        background: hsl(225, 73%, 50%);
+    }
+}
+.add-to-library-btn:active {
+    transform: scale(.95)
+}
+.main-content-child:hover > .add-to-library-btn {
+    display: grid;
+}
+
+@media (max-width: 480px) {
+    .add-to-library-btn {
+        display: grid;
+    }
+}

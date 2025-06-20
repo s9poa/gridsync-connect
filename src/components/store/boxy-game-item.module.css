@@ -1,0 +1,23 @@
+.container {
+    transition: transform .2s ease-in-out;
+}
+.container:hover, .container:active, .container:focus-visible {
+    transform: translateY(-5px);
+}
+.container img {
+    border-radius: 10px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: center;
+}
+.container h3 {
+    font-weight: 500;
+    padding: .5rem 0;
+    font-size: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}

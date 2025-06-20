@@ -14,6 +14,7 @@ function Library({ user }) {
   const [fadeOutPreloader, setFadeOutPreloader] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("Removed from Favorites.");
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -35,6 +36,7 @@ function Library({ user }) {
     const result = await removeFavorite(favId);
     if (result.success) {
       setFavorites(favs => favs.filter(f => f.id !== favId));
+      setSuccessMsg("Removed from Favorites.");
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 3000);
     } else {
@@ -65,7 +67,7 @@ function Library({ user }) {
           ))}
         </div>
       )}
-      {showSuccess && <div className={styles["msg-prompt"]}><SuccessFormMessage des="Removed from Favorites."/></div>}
+      {showSuccess && <div className={styles["msg-prompt"]}><SuccessFormMessage des={successMsg}/></div>}
       {showError && <div className={styles["msg-prompt"]}><ErrorFormMessage des="Error. Something went wrong."/></div>}
     </main>
   );

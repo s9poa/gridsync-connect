@@ -21,23 +21,23 @@
 }
 .preloader-dot.one {
     animation-delay: 0s;
-    background: hsl(350, 97%, 90%);
+    background: hsl(200, 97%, 90%);
 }
 .preloader-dot.two {
     animation-delay: 0.1s;
-    background: hsl(350, 97%, 75%);
+    background: hsl(200, 97%, 75%);
 }
 .preloader-dot.three {
     animation-delay: 0.3s;
-    background: hsl(350, 97%, 60%);
+    background: hsl(200, 97%, 60%);
 }
 .preloader-dot.four {
     animation-delay: 0.4s;
-    background: hsl(350, 97%, 45%);
+    background: hsl(200, 97%, 45%);
 }
 .preloader-dot.five {
     animation-delay: 0.5s;
-    background: hsl(350, 97%, 30%);
+    background: hsl(200, 97%, 30%);
 }
 @keyframes loadingPulse {
     0% {

@@ -126,8 +126,15 @@ main {
     grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));
     gap: 1rem;
 }
-.main-content-section .main-content-section-grid.grid-6 {
+.main-content-section .main-content-section-grid.grid-5 {
     --grid-min-col-size: 225px;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));
+    gap: 1rem;
+}
+.main-content-section .main-content-section-grid.grid-6 {
+    --grid-min-col-size: 180px;
     
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));

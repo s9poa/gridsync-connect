@@ -1,22 +1,56 @@
 import styles from '../../global-css/portrait-game-item.module.css';
-import { addFavorite } from '../../utils/auth';
+import { addFavorite, getFavorites, removeFavorite } from '../../utils/auth';
 import { Link } from 'react-router';
+import { useEffect, useState } from 'react';
 
 function PortraitGameItem({ user, onSuccess, onError, link, img, discount, title, des, previousPrice, price }) {
-    const handleFavorite = async (e) => {
-        e.preventDefault();
-        const result = await addFavorite({
-            game_id: title.toLowerCase().replace(/\s+/g, '-'),
-            title,
-            image_path: img,
-            price,
-            type: 'portrait'
-        });
+    const [isFavorited, setIsFavorited] = useState(false);
+    const [favoriteId, setFavoriteId] = useState(null);
 
-        if (result.success) {
-            onSuccess?.();
+    useEffect(() => {
+        const checkFavorite = async () => {
+            if (!user) return;
+            const favs = await getFavorites();
+            const match = favs.find(f => f.title === title);
+            if (match) {
+                setIsFavorited(true);
+                setFavoriteId(match.id);
+            }
+        };
+        checkFavorite();
+    }, [user, title]);
+
+    const handleToggleFavorite = async (e) => {
+        e.preventDefault();
+        if (!user) return;
+
+        if (isFavorited && favoriteId) {
+            const result = await removeFavorite(favoriteId);
+            if (result.success) {
+                setIsFavorited(false);
+                setFavoriteId(null);
+                onSuccess?.("Removed from Favorites.");
+            } else {
+                onError?.();
+            }
         } else {
-            onError?.();
+            const result = await addFavorite({
+                game_id: title.toLowerCase().replace(/\s+/g, '-'),
+                title,
+                image_path: img,
+                price,
+                type: 'portrait'
+            });
+
+            if (result.success) {
+                const favs = await getFavorites();
+                const match = favs.find(f => f.title === title);
+                if (match) setFavoriteId(match.id);
+                setIsFavorited(true);
+                onSuccess?.("Added to Favorites.");
+            } else {
+                onError?.();
+            }
         }
     };
 
@@ -33,8 +67,10 @@ function PortraitGameItem({ user, onSuccess, onError, link, img, discount, title
                 </div>
             </div>
             {user && (
-                <button className={`${styles["add-to-library-btn"]} add-to-library-btn`} onClick={handleFavorite}>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
+                <button className={`${styles["add-to-library-btn"]} add-to-library-btn`} onClick={handleToggleFavorite}>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill={isFavorited ? "#ffffff" : "none"} stroke="#ffffff" strokeWidth="60">
+                        <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z"/>
+                    </svg>
                 </button>
             )}
         </Link>

@@ -7,11 +7,14 @@ import LandscapeGameItem from "../components/store/LandscapeGameItem";
 import PortraitGameItem from "../components/store/PortraitGameItem";
 import SuccessFormMessage from "../components/SuccessFormMessage";
 import ErrorFormMessage from "../components/ErrorFormMessage";
+import Banner from "../components/store/Banner";
+import BoxyGameItem from "../components/store/BoxyGameItem";
 
 function Store({ user }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("Added to Favorites.");
   const timeoutRef = useRef(null);
 
   useEffect(() => {
@@ -26,7 +29,8 @@ function Store({ user }) {
     timeoutRef.current = setInterval(() => setActiveIndex(prev => (prev + 1) % 5), 10000);
   };
 
-  const triggerSuccess = () => {
+  const triggerSuccess = (msg = "Added to Favorites.") => {
+    setSuccessMsg(msg);
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 3000);
   };
@@ -39,15 +43,14 @@ function Store({ user }) {
   return (
     <main>
       <section className={styles.hero}>
-        
         <div className={styles["target-items"]}>
           <div className={styles.gradient}></div>
           <Header title="Store"/>
-          {activeIndex === 0 && <Hero img="/public/store/anno-117.jpg" title="Pre-order Anno-117: Pax Romana" des="Get 20% off when you redeem 100 GridSync Points" ctaLink="/" ctaText="Pre-order" warning="Learn more about our loyalty program and Points here. Terms and conditions apply." />}
-          {activeIndex === 1 && <Hero img="/public/store/deal.avif" title="Up to 85% off" des="Earn points with any puchase from the GridSync Store" ctaLink="/" ctaText="Shop now" warning="Conditions apply. Valid on select titles until June 17, 2025 at 10 AM UTC." />}
-          {activeIndex === 2 && <Hero img="/public/store/the-division-2.jpg" title="Your ticket to Washinton, D.C. for $3" des="Play The Division 2 to fight the chaos and lead the resistance." ctaLink="/" ctaText="Shop now" warning="Conditions apply. Valid on select titles until June 17, 2025 at 10 AM UTC." />}
-          {activeIndex === 3 && <Hero img="/public/store/rainbow-six-siege.jpg" title="Rainbow Six Siege X is out!" des="Get Free Access now - Including operators, Unranked mode, Quick Play, and Dual Front" ctaLink="/" ctaText="Play now" />}
-          {activeIndex === 4 && <Hero img="/public/store/100plus-games.jpg" title="100+ games, worlds. Explore them all with GridSync+" des="All of our games, in their most premium editions." ctaLink="/" ctaText="Join now" />}
+          {activeIndex === 0 && <Hero img="/store/anno-117.jpg" title="Pre-order Anno-117: Pax Romana" des="Get 20% off when you redeem 100 GridSync Points" ctaLink="/" ctaText="Pre-order" warning="Learn more about our loyalty program and Points here. Terms and conditions apply." />}
+          {activeIndex === 1 && <Hero img="/store/deal.avif" title="Up to 85% off" des="Earn points with any puchase from the GridSync Store" ctaLink="/" ctaText="Shop now" warning="Conditions apply. Valid on select titles until June 17, 2025 at 10 AM UTC." />}
+          {activeIndex === 2 && <Hero img="/store/the-division-2.jpg" title="Your ticket to Washinton, D.C. for $3" des="Play The Division 2 to fight the chaos and lead the resistance." ctaLink="/" ctaText="Shop now" warning="Conditions apply. Valid on select titles until June 17, 2025 at 10 AM UTC." />}
+          {activeIndex === 3 && <Hero img="/store/rainbow-six-siege.jpg" title="Rainbow Six Siege X is out!" des="Get Free Access now - Including operators, Unranked mode, Quick Play, and Dual Front" ctaLink="/" ctaText="Play now" />}
+          {activeIndex === 4 && <Hero img="/store/100plus-games.jpg" title="100+ games, worlds. Explore them all with GridSync+" des="All of our games, in their most premium editions." ctaLink="/" ctaText="Join now" />}
           <div className={styles["carousel-tracker"]}>
             <button className={`${styles.dot} ${activeIndex === 0 ? styles.active : ""}`} onClick={() => handleManualSwitch(0)}></button>
             <button className={`${styles.dot} ${activeIndex === 1 ? styles.active : ""}`} onClick={() => handleManualSwitch(1)}></button>
@@ -56,41 +59,56 @@ function Store({ user }) {
             <button className={`${styles.dot} ${activeIndex === 4 ? styles.active : ""}`} onClick={() => handleManualSwitch(4)}></button>
           </div>
         </div>
-
         <div className={styles["target-container"]}>
-          <HeroTargeter img="/public/store/anno-117.jpg" title="Pre-order Anno-117: Pax Romana" onClick={() => handleManualSwitch(0)} className={activeIndex === 0 ? styles.active : ""} />
-          <HeroTargeter img="/public/store/deal.avif" title="Up to 85% off" des="Earn points with any puchase from the GridSync Store" onClick={() => handleManualSwitch(1)} className={activeIndex === 1 ? styles.active : ""} />
-          <HeroTargeter img="/public/store/the-division-2.jpg" title="Your ticket to Washinton, D.C. for $3" onClick={() => handleManualSwitch(2)} className={activeIndex === 2 ? styles.active : ""} />
-          <HeroTargeter img="/public/store/rainbow-six-siege.jpg" title="Rainbow Six Siege X: Coming June 10th 2025" onClick={() => handleManualSwitch(3)} className={activeIndex === 3 ? styles.active : ""} />
-          <HeroTargeter img="/public/store/100plus-games.jpg" title="100+ games, worlds. Explore them all with GridSync+" onClick={() => handleManualSwitch(4)} className={activeIndex === 4 ? styles.active : ""} />
+          <HeroTargeter img="/store/anno-117.jpg" title="Pre-order Anno-117: Pax Romana" onClick={() => handleManualSwitch(0)} className={activeIndex === 0 ? styles.active : ""} />
+          <HeroTargeter img="/store/deal.avif" title="Up to 85% off" des="Earn points with any puchase from the GridSync Store" onClick={() => handleManualSwitch(1)} className={activeIndex === 1 ? styles.active : ""} />
+          <HeroTargeter img="/store/the-division-2.jpg" title="Your ticket to Washinton, D.C. for $3" onClick={() => handleManualSwitch(2)} className={activeIndex === 2 ? styles.active : ""} />
+          <HeroTargeter img="/store/rainbow-six-siege.jpg" title="Rainbow Six Siege X: Coming June 10th 2025" onClick={() => handleManualSwitch(3)} className={activeIndex === 3 ? styles.active : ""} />
+          <HeroTargeter img="/store/100plus-games.jpg" title="100+ games, worlds. Explore them all with GridSync+" onClick={() => handleManualSwitch(4)} className={activeIndex === 4 ? styles.active : ""} />
         </div>
       </section>
 
       <section className="main-content-section">
         <h2 className="main-content-section-title">Play the new season now</h2>
         <div className="main-content-section-grid grid-4">
-          <LandscapeGameItem img="/public/store/siege-x-free-access.webp" tag="New" title="Tom Clancy's Rainbow Six Siege X" des="Free Access" price="Free"/>
-          <LandscapeGameItem img="/public/store/siege-x-elite-edition.webp" tag="New" title="Tom Clancy's Rainbow Six Siege X" des="Elite Edition" price="$19.99"/>
-          <LandscapeGameItem img="/public/store/siege-x-pack.webp" title="Tom Clancy's Rainbow Six Siege - Siege X Pack" des="Siege X Pack" price="$39.99"/>
-          <LandscapeGameItem img="/public/store/siege-credits.webp" title="Tom Clancy's Rainbow Six Siege - 1,200 R6 Credits" des="1,200 R6 Credits" price="$9.99"/>
+          <LandscapeGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/store/siege-x-free-access.webp" tag="New" title="Tom Clancy's Rainbow Six Siege X" des="Free Access" price="Free"/>
+          <LandscapeGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/store/siege-x-elite-edition.webp" tag="New" title="Tom Clancy's Rainbow Six Siege X" des="Elite Edition" price="$19.99"/>
+          <LandscapeGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/store/siege-x-pack.webp" title="Tom Clancy's Rainbow Six Siege - Siege X Pack" des="Siege X Pack" price="$39.99"/>
+          <LandscapeGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/store/siege-credits.webp" title="Tom Clancy's Rainbow Six Siege - 1,200 R6 Credits" des="1,200 R6 Credits" price="$9.99"/>
         </div>
       </section>
 
       <section className="main-content-section">
         <h2 className="main-content-section-title">Save big, play big</h2>
-        <div className="main-content-section-grid grid-6">
-          <PortraitGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/public/store/portrait-the-division-2.webp" title="Tom Clancy's Rainbow Six Siege X" des="Standard Edition" discount="-90%" previousPrice="$29.99" price="$3.00"/>
-          <PortraitGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/public/store/portrait-anno-1800.jpg" title="Anno 1800" des="Standard Edition" discount="-75%" previousPrice="$59.99" price="$15.00"/>
-          <PortraitGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/public/store/portrait-assassins-creed-mirage.jpeg" title="Assassin's Creed Mirage" des="Standard Edition" discount="-60%" previousPrice="$39.99" price="$20.00"/>
-          <PortraitGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/public/store/portrait-star-wars-outlaws.jpg" title="Star Wars Outlaws" des="Standard Edition" discount="-50%" previousPrice="$69.99" price="$34.99"/>
-          <PortraitGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/public/store/portrait-breakpoint.avif" title="Tom Clancy's Ghost Recon Breakpoint" des="Standard Edition" discount="-80%" previousPrice="$59.99" price="$12.00"/>
+        <div className="main-content-section-grid grid-5">
+          <PortraitGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/store/portrait-the-division-2.webp" title="Tom Clancy's Rainbow Six Siege X" des="Standard Edition" discount="-90%" previousPrice="$29.99" price="$3.00"/>
+          <PortraitGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/store/portrait-anno-1800.jpg" title="Anno 1800" des="Standard Edition" discount="-75%" previousPrice="$59.99" price="$15.00"/>
+          <PortraitGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/store/portrait-assassins-creed-mirage.jpeg" title="Assassin's Creed Mirage" des="Standard Edition" discount="-60%" previousPrice="$39.99" price="$20.00"/>
+          <PortraitGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/store/portrait-star-wars-outlaws.jpg" title="Star Wars Outlaws" des="Standard Edition" discount="-50%" previousPrice="$69.99" price="$34.99"/>
+          <PortraitGameItem user={user} onSuccess={triggerSuccess} onError={triggerError} img="/store/portrait-breakpoint.avif" title="Tom Clancy's Ghost Recon Breakpoint" des="Standard Edition" discount="-80%" previousPrice="$59.99" price="$12.00"/>
         </div>
       </section>
 
-      {showSuccess && <div className={styles["msg-prompt"]}><SuccessFormMessage des="Added to Favorites." /></div>}
+      <section className="main-content-section">
+        <Banner img="/gridsync-banner.webp" highlight="GridSync +" title="One world is never enough" des="Enjoy titles you love, discover new favourites with GridSync+" linkText="Join now"/>
+      </section>
+      
+      <section className="main-content-section">
+        <h2 className="main-content-section-title">Visit GridSync's universes</h2>
+        <div className="main-content-section-grid grid-6">
+          <BoxyGameItem img="/store/banner-ac.jpg" title="Assassin's Creed 2"/>
+          <BoxyGameItem img="/store/banner-rainbow-six.jpg" title="Rainbow Six"/>
+          <BoxyGameItem img="/store/farcry.jpg" title="Far Cry 6"/>
+          <BoxyGameItem img="/store/watch-dogs.jpg" title="Watch Dogs"/>
+          <BoxyGameItem img="/store/for-honor.webp" title="For Honor"/>
+          <BoxyGameItem img="/store/portrait-breakpoint.avif" title="The Division"/>
+        </div>
+      </section>
+
+      {showSuccess && <div className={styles["msg-prompt"]}><SuccessFormMessage des={successMsg} /></div>}
       {showError && <div className={styles["msg-prompt"]}><ErrorFormMessage des="Error. Something went wrong." /></div>}
     </main>
-  )
+  );
 }
 
 export default Store;

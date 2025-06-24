@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import FavoritedGame from '../components/library/FavoritedGame';
 import { getFavorites, removeFavorite } from '../utils/auth';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import SuccessFormMessage from '../components/SuccessFormMessage';
 import ErrorFormMessage from '../components/ErrorFormMessage';
 import Preloader from "../components/preloader/Preloader";

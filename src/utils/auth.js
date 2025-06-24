@@ -184,3 +184,97 @@ export async function removeFavorite(favoriteId) {
 
   return { success: true };
 }
+
+export async function searchUsers(username) {
+  const trimmed = username.trim();
+
+  const { data: sessionData } = await supabase.auth.getUser();
+  const user = sessionData?.user;
+
+  let query = supabase
+    .from('profiles')
+    .select('id, username, title, profile_picture')
+    .ilike('username', `%${trimmed}%`);
+
+  // If signed in, exclude self from search results
+  if (user) query = query.neq('id', user.id);
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Search error:", error.message);
+    return [];
+  }
+
+  return data;
+}
+
+
+export async function addFriend(friendId) {
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (userError || !user) {
+    console.error("User not found:", userError?.message);
+    return { error: "Not signed in" };
+  }
+
+  const { error } = await supabase.from('friends').insert({
+    user_id: user.id,
+    friend_id: friendId
+  });
+
+  if (error) {
+    if (error.code === "23505") return { success: true }; // already added
+    console.error("Add friend error:", error.message);
+    return { error: error.message };
+  }
+
+  return { success: true };
+}
+
+export async function getFriends() {
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (userError || !user) return [];
+
+  const { data, error } = await supabase
+    .from('friends')
+    .select('friend_id')
+    .eq('user_id', user.id);
+
+  if (error) {
+    console.error("Fetch friends error:", error.message);
+    return [];
+  }
+
+  const friendIds = data.map(f => f.friend_id);
+
+  if (!friendIds.length) return [];
+
+  const { data: profiles, error: profileError } = await supabase
+    .from('profiles')
+    .select('id, username, title, profile_picture')
+    .in('id', friendIds);
+
+  if (profileError) {
+    console.error("Fetch profile error:", profileError.message);
+    return [];
+  }
+
+  return profiles;
+}
+
+export async function removeFriend(friendId) {
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (userError || !user) return { error: "Not signed in" };
+
+  const { error } = await supabase
+    .from('friends')
+    .delete()
+    .match({ user_id: user.id, friend_id: friendId });
+
+  if (error) {
+    console.error("Remove friend error:", error.message);
+    return { error: error.message };
+  }
+
+  return { success: true };
+}

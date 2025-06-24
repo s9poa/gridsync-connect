@@ -40,7 +40,7 @@ function MainApp() {
           <Route path="/subscribe" element={<Subscribe />} />
           <Route path="/account" element={<Account user={user} setUser={setUser} />} />
         </Routes>
-        <RightSidebar />
+        <RightSidebar user={user} />
       </BrowserRouter>
     </div>
   );

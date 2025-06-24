@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.container > div {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.container img {
+    border-radius: 50%;
+}
+.container h4 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+.container p {
+    color: var(--gray);
+}
+.add-user-to-friends, .remove-user-from-friends {
+    background: var(--hover);
+    height: 2rem;
+    max-width: 2rem;
+    min-width: 2rem;
+    border-radius: 10px;
+    transform: rotate(45deg);
+}
+.add-user-to-friends i, .remove-user-from-friends i {
+    transform: rotate(-45deg);
+}

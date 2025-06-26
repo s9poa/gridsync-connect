@@ -23,6 +23,7 @@
     overflow: hidden;
     align-content: center;
     text-align: center;
+    text-wrap: pretty;
 }
 .container > div {
     padding: 1rem;

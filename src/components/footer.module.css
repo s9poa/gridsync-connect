@@ -1,0 +1,32 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-block: 5rem;
+    padding: 0 1rem;
+}
+.footer p {
+    text-align: center;
+}
+.footer nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+.footer nav i {
+    font-size: .4rem;
+    color: hsl(218, 100%, 75%);
+}
+.footer nav a {
+    color: hsl(218, 100%, 75%);
+}
+.footer nav a:hover {
+    text-decoration: underline;
+}
+.footer .copyright {
+    font-size: .8rem;
+    color: var(--gray);
+}

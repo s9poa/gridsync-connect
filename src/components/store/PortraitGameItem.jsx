@@ -3,7 +3,7 @@ import { addFavorite, getFavorites, removeFavorite } from '../../utils/auth';
 import { Link } from 'react-router';
 import { useEffect, useState } from 'react';
 
-function PortraitGameItem({ user, onSuccess, onError, link, img, discount, title, des, previousPrice, price }) {
+function PortraitGameItem({ user, onSuccess, onError, link, img, discount, title, des, previousPrice, price, tag}) {
     const [isFavorited, setIsFavorited] = useState(false);
     const [favoriteId, setFavoriteId] = useState(null);
 
@@ -58,10 +58,11 @@ function PortraitGameItem({ user, onSuccess, onError, link, img, discount, title
         <Link to={link} className={`${styles["container"]} main-content-child`}>
             <img src={img} className={styles.img} alt="" />
             <div>
+                {tag && <span className={styles.tag}>{tag}</span>}
                 <h3 className={styles.title}>{title}</h3>
                 <p className={styles.des}>{des}</p>
                 <div>
-                    <span className={styles.discount}>{discount}</span>
+                    {discount && <span className={styles.discount}>{discount}</span>}
                     <span className={styles.previousPrice}>{previousPrice}</span>
                     <span className={styles.price}>{price}</span>
                 </div>

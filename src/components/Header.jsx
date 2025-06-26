@@ -175,8 +175,8 @@ function Header({ title }) {
                       <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); lastTriggerRef.current?.focus(); }} aria-label="Close login form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
                     </div>
                     <div className={styles["form-divider"]}><span></span><span className={styles.label}>Grid<span>Sync</span></span><span></span></div>
-                    <div className={styles["input-grouping"]}><label htmlFor="mobile-user-email">Email</label><input type="email" placeholder="Email" id="mobile-user-email" required /></div>
-                    <div className={styles["input-grouping"]}><label htmlFor="mobile-user-password">Password</label><input type="password" placeholder="Password" id="mobile-user-password" required /></div>
+                    <div className={styles["input-grouping"]}><label htmlFor="mobile-user-email">Email</label><input type="email" placeholder="Enter your email" id="mobile-user-email" required /></div>
+                    <div className={styles["input-grouping"]}><label htmlFor="mobile-user-password">Password</label><input type="password" placeholder="Enter your password" id="mobile-user-password" required /></div>
                     {showSuccess && <SuccessFormMessage des="Signed in successfully." />}
                     {showError && <ErrorFormMessage des="Sign-in failed." />}
                     <button type="button" className={styles.redirect} onClick={() => setActiveForm("signup")}>Don't have an account? <span>Sign up</span></button>
@@ -193,8 +193,8 @@ function Header({ title }) {
                       <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); lastTriggerRef.current?.focus(); }} aria-label="Close signup form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
                     </div>
                     <div className={styles["form-divider"]}><span></span><span className={styles.label}>Grid<span>Sync</span></span><span></span></div>
-                    <div className={styles["input-grouping"]}><label htmlFor="mobile-user-email">Email</label><input type="email" placeholder="Email" id="mobile-user-email" required /></div>
-                    <div className={styles["input-grouping"]}><label htmlFor="mobile-user-password">Password</label><input type="password" placeholder="Password" id="mobile-user-password" required /></div>
+                    <div className={styles["input-grouping"]}><label htmlFor="mobile-user-email">Email</label><input type="email" placeholder="Enter your email" id="mobile-user-email" required /></div>
+                    <div className={styles["input-grouping"]}><label htmlFor="mobile-user-password">Password</label><input type="password" placeholder="Enter your password" id="mobile-user-password" required /></div>
                     {showSuccess && <SuccessFormMessage des="Account created successfully." />}
                     {showError && <ErrorFormMessage des="Signup failed." />}
                     <button type="button" className={styles.redirect} onClick={() => setActiveForm("login")}>Already have an account? <span>Log in</span></button>
@@ -258,6 +258,7 @@ function Header({ title }) {
                 </div>
                 {friends.length === 0 ? (
                   <div className={styles["no-friends-state"]}>
+                    <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
                     <p>{user ? "No Friends Added" : "You must be signed in to Add Friends"}</p>
                   </div>
                 ) : (

@@ -85,6 +85,7 @@ function RightSidebar({ user }) {
           </div>
           {friends.length === 0 ? (
             <div className={styles["no-friends-state"]}>
+              <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
               <p>{user ? "No Friends Added" : "You must be signed in to Add Friends"}</p>
             </div>
           ) : (

@@ -13,6 +13,9 @@ import Subscribe from './directory/Subscribe.jsx';
 import LeftSidebar from './sidebar/LeftSidebar.jsx';
 import RightSidebar from './sidebar/RightSidebar.jsx';
 import Account from './directory/Account.jsx';
+import Confirm from './directory/Confirm.jsx';
+
+import ScrollToTop from './components/ScrollToTop.jsx';
 
 function MainApp() {
   const [user, setUser] = useState(null);
@@ -32,6 +35,7 @@ function MainApp() {
   return (
     <div id="main-layout">
       <BrowserRouter>
+        <ScrollToTop />
         <LeftSidebar user={user} setUser={setUser} />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -39,6 +43,7 @@ function MainApp() {
           <Route path="/store" element={<Store user={user} />} />
           <Route path="/subscribe" element={<Subscribe />} />
           <Route path="/account" element={<Account user={user} setUser={setUser} />} />
+          <Route path="/confirm-validation-success" element={<Confirm setUser={setUser} />} />
         </Routes>
         <RightSidebar user={user} />
       </BrowserRouter>

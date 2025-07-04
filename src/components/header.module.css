@@ -5,6 +5,9 @@
     gap: 1rem;
     padding: 1rem;
 }
+.header div .subscribe {
+    font-weight: 600;
+}
 .header > h1 {
     font-weight: 700;
     font-size: 2rem;
@@ -64,10 +67,9 @@
     height: 100dvh;
     transform: translateX(100%);
     transition: transform .2s linear;
-    border: 5px solid hsla(230, 39%, 5%, 1);
-    outline: 2px solid hsl(229, 31%, 15%);
-    outline-offset: -.5rem;
-    z-index: 1;
+    outline: 3px solid hsl(229, 31%, 25%);
+    outline-offset: -.2rem;
+    z-index: 2;
     overflow: auto;
     overscroll-behavior: contain;
     padding-bottom: 1rem;
@@ -100,10 +102,31 @@
     text-align: center;
 }
 .account-access-links .log-out {
-    background: var(--hover) !important;
+    background: hsla(0, 100%, 50%, .125) !important;
+}
+.account-access-links .log-out:active {
+    outline: 1px solid hsla(0, 100%, 50%, .25);
+    outline-offset: -4px;
 }
 .username {
     margin-top: 1rem;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    font-weight: 500;
+}
+.account-title {
+    text-transform: uppercase;
+    background: #833AB4;
+    background: linear-gradient(to right, #833AB4 0%, #FD1D1D 50%, #FCB045 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    margin-top: .5rem;
 }
 /* Forms */
 .form-blur {
@@ -118,7 +141,7 @@
     padding: 1rem;
     display: grid;
     place-items: center;
-    z-index: 2;
+    z-index: 3;
 }
 .form-blur form {
     display: flex;
@@ -246,7 +269,7 @@
 
 /* Search Content */
 .search-content {
-    padding: 0 1rem;
+    padding: 0;
 }
 .search-content .searchHeader {
     display: flex;
@@ -364,6 +387,7 @@
 .search-content .main-content .no-friends-state p {
     font-size: .95rem;
     text-align: left;
+    text-wrap: pretty;
 }
 .search-content .main-content .results {
     padding-bottom: 2rem;
@@ -389,6 +413,9 @@
 @media(max-width: 920px) {
     .header > div > .mobile-menu {
         display: grid !important;
+    }
+    .header div .subscribe span {
+        display: none !important;
     }
 }
 @media (max-width: 480px) {

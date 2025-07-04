@@ -1,0 +1,69 @@
+.container {
+    background: var(--hover);
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.container .header h3 {
+    font-size: 2rem;
+}
+.container .header p {
+    color: var(--gray);
+    font-weight: 500;
+    text-wrap: pretty;
+}
+.container .cost {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-block: 1rem 1.8rem;
+}
+.container .cost span {
+    font-size: 1.25rem;
+}
+.ctaGrouping {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+}
+.ctaGrouping .targeted {
+    background: royalblue;
+    border-radius: 100vw;
+    height: 3rem;
+    transition: background .125s ease-in-out;
+}
+.ctaGrouping .targeted:hover {
+    background: hsl(225, 73%, 52%);
+}
+.ctaGrouping .untargeted {
+    color: hsl(225, 73%, 85%);
+    width: fit-content;
+    margin: 0 auto;
+}
+.ctaGrouping .untargeted:hover, .ctaGrouping .untargeted:active, .ctaGrouping .untargeted:focus-visible {
+    text-decoration: underline;
+}
+.listing {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+.listing li {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    text-wrap: pretty;
+}
+.listing li i {
+    margin-right: 1rem;
+    background: var(--hover);
+    min-width: 2rem;
+    max-width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border-radius: 100vw;
+    outline: 2px solid var(--active);
+    outline-offset: -4px;
+}

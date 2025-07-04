@@ -1,0 +1,67 @@
+.paymentHeader {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    text-align: center;
+}
+.paymentHeader h2 {
+    font-size: 2rem;
+}
+.paymentHeader p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--gray);
+}
+.cardGrid {
+    max-width: 75rem;
+    margin: 0 auto;
+    --grid-min-col-size: 300px !important;
+}
+.faqContainer {
+    padding: 1rem;
+}
+.faqContainer details {
+    background: var(--hover);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.faqContainer details:hover,.faqContainer details:active {
+    background: var(--active);
+}
+.faqContainer details:first-child {
+    border-radius: 10px 10px 0 0;
+}
+.faqContainer details:last-child {
+    border-radius: 0 0 10px 10px;
+}
+.faqContainer details:not(:last-child) {
+    border-bottom: 1px solid var(--active);
+}
+.faqContainer summary {
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+}
+.faqContainer summary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+.faqContainer p {
+    color: var(--gray);
+    margin-top: 1rem;
+}
+@media (max-width: 480px) {
+    .cardGrid {
+        flex-direction: column !important;
+    }
+}

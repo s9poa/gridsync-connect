@@ -1,10 +1,12 @@
 import supabase from './supabaseClient';
 
 export async function signUp(email, password) {
-    // Step 1: Create the user in Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
-        password
+        password,
+        options: {
+            emailRedirectTo: 'http://localhost:5173/confirm-validation-success'
+        }
     });
 
     if (authError) {
@@ -12,26 +14,10 @@ export async function signUp(email, password) {
         return { error: authError.message };
     }
 
-    const userId = authData.user.id;
-
-    // Step 2: Generate guestXXXX username
-    const suffix = Math.random().toString(36).substring(2, 6).toUpperCase();
-    const guestUsername = `guest${suffix}`;
-
-    // Step 3: Insert into 'profiles' table
-    const { error: profileError } = await supabase.from('profiles').insert({
-        id: userId,
-        username: guestUsername,
-        title: 'newbie'
-    });
-
-    if (profileError) {
-        console.error("Profile insert error:", profileError.message);
-        return { error: profileError.message };
-    }
-
+    // DO NOT insert into 'profiles' yet — wait for email confirmation + real login
     return { success: true };
 }
+
 
 export async function signIn(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });

@@ -2,6 +2,10 @@
     padding: .5rem 1rem;
     border-radius: 5px;
     text-align: center;
+
+}
+.form-message p {
+    text-wrap: pretty !important;
 }
 .form-message.success {
     background: hsl(120, 61%, 10%);

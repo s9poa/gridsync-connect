@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   signIn,
   signUp,
@@ -10,18 +10,19 @@ import {
   removeFriend,
   getFriends
 } from "../utils/auth";
+import supabase from "../utils/supabaseClient";
 import styles from "./left-sidebar.module.css";
 
 import SuccessFormMessage from "../components/SuccessFormMessage";
 import ErrorFormMessage from "../components/ErrorFormMessage";
 import User from "../components/rightsidebar/User";
 
-
 function LeftSidebar({ user, setUser }) {
   const [activeForm, setActiveForm] = useState(null);
   const [showAccountNav, setShowAccountNav] = useState(false);
   const [signupResult, setSignupResult] = useState(null);
   const [loginResult, setLoginResult] = useState(null);
+  const [isConfirming, setIsConfirming] = useState(false);
   const [friends, setFriends] = useState([]);
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState(null);
@@ -31,7 +32,24 @@ function LeftSidebar({ user, setUser }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getUserWithProfile().then((u) => u && setUser(u));
+    const checkAuth = async () => {
+      const u = await getUserWithProfile();
+      if (u) {
+        setUser(u);
+        setActiveForm(null);
+        setSignupResult(null);
+        setLoginResult(null);
+        setIsConfirming(false);
+      }
+    };
+
+    checkAuth();
+
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session) checkAuth();
+    });
+
+    return () => listener.subscription.unsubscribe();
   }, []);
 
   useEffect(() => {
@@ -84,20 +102,20 @@ function LeftSidebar({ user, setUser }) {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    if (isConfirming) return;
+
     setSignupResult(null);
+    setIsConfirming(true);
+
     const email = e.target.elements["user-email"].value;
     const password = e.target.elements["user-password"].value;
     const result = await signUp(email, password);
+
     if (result.error) {
       setSignupResult("error");
+      setIsConfirming(false);
     } else {
-      const u = await getUserWithProfile();
-      if (u) setUser(u);
       setSignupResult("success");
-      setTimeout(() => {
-        setActiveForm(null);
-        setSignupResult(null);
-      }, 1500);
     }
   };
 
@@ -292,10 +310,12 @@ function LeftSidebar({ user, setUser }) {
               <div className={styles["form-divider"]}><span></span><span className={styles.label}>Grid<span>Sync</span></span><span></span></div>
               <div className={styles["input-grouping"]}><label htmlFor="user-email">Email</label><input type="email" id="user-email" placeholder="Enter your email" required /></div>
               <div className={styles["input-grouping"]}><label htmlFor="user-password">Password</label><input type="password" id="user-password" placeholder="Enter your password" required /></div>
-              {signupResult === "success" && <SuccessFormMessage des="Your account has been created successfully." />}
+              {signupResult === "success" && <SuccessFormMessage des="Check your email to complete sign up. Your account will be activated after confirmation." />}
               {signupResult === "error" && <ErrorFormMessage des="Sign up failed. Please try again." />}
               <button type="button" className={styles.redirect} onClick={() => { setActiveForm("login"); setSignupResult(null); }}>Already have an account? <span>Log in</span></button>
-              <button className={styles["form-submission"]}>Sign up</button>
+              <button className={styles["form-submission"]} disabled={isConfirming} style={{ cursor: isConfirming ? "not-allowed" : "pointer" }}>
+                {isConfirming ? <><i className="fa-solid fa-spinner fa-spin"></i>&nbsp;Waiting for email confirmation...</> : "Sign up"}
+              </button>
             </form>
           </div>
         )}

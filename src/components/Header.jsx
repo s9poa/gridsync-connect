@@ -1,7 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "./header.module.css";
-import { signIn, signUp, signOut, getUserWithProfile, searchUsers, addFriend, removeFriend, getFriends } from "../utils/auth";
+import {
+  signIn,
+  signUp,
+  signOut,
+  getUserWithProfile,
+  searchUsers,
+  addFriend,
+  removeFriend,
+  getFriends
+} from "../utils/auth";
 import User from "./rightsidebar/User";
 import SuccessFormMessage from "../components/SuccessFormMessage";
 import ErrorFormMessage from "../components/ErrorFormMessage";
@@ -13,8 +22,10 @@ function Header({ title }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeForm, setActiveForm] = useState(null);
   const [user, setUser] = useState(null);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showError, setShowError] = useState(false);
+
+  const [signupResult, setSignupResult] = useState(null);
+  const [loginResult, setLoginResult] = useState(null);
+  const [isConfirming, setIsConfirming] = useState(false);
 
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState(null);
@@ -49,7 +60,8 @@ function Header({ title }) {
     const focusable = container?.querySelectorAll("button, input, a");
     const first = focusable?.[0], last = focusable?.[focusable.length - 1];
     first?.focus();
-    const trapFocus = e => {
+
+    const trapFocus = (e) => {
       if (e.key === "Tab" && focusable?.length) {
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
@@ -71,31 +83,42 @@ function Header({ title }) {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setShowSuccess(false); setShowError(false);
+    setLoginResult(null);
+
     const email = e.target.elements["mobile-user-email"].value;
     const password = e.target.elements["mobile-user-password"].value;
     const result = await signIn(email, password);
-    if (result.error) setShowError(true);
-    else {
+
+    if (result.error) {
+      setLoginResult("error");
+    } else {
       const u = await getUserWithProfile();
       if (u) setUser(u);
-      setShowSuccess(true);
-      setTimeout(() => { setActiveForm(null); setShowSuccess(false); }, 1500);
+      setLoginResult("success");
+      setTimeout(() => {
+        setActiveForm(null);
+        setLoginResult(null);
+      }, 1500);
     }
   };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    setShowSuccess(false); setShowError(false);
+    if (isConfirming) return;
+
+    setSignupResult(null);
+    setIsConfirming(true);
+
     const email = e.target.elements["mobile-user-email"].value;
     const password = e.target.elements["mobile-user-password"].value;
     const result = await signUp(email, password);
-    if (result.error) setShowError(true);
-    else {
-      const u = await getUserWithProfile();
-      if (u) setUser(u);
-      setShowSuccess(true);
-      setTimeout(() => { setActiveForm(null); setShowSuccess(false); }, 1500);
+
+    if (result.error) {
+      setSignupResult("error");
+      setIsConfirming(false);
+    } else {
+      setSignupResult("success");
+      // keep isConfirming true so user can't re-click; reset on actual confirmation or timeout
     }
   };
 
@@ -114,11 +137,6 @@ function Header({ title }) {
     setSearchResults(results);
   };
 
-  const handleCloseResults = () => {
-    setSearchResults(null);
-    setQuery("");
-  };
-
   const handleAddFriend = async (id) => {
     const res = await addFriend(id);
     if (res.success) getFriends().then(setFriends);
@@ -135,16 +153,28 @@ function Header({ title }) {
     <header className={styles.header}>
       <h1>{title}</h1>
       <div>
-        <Link to="/" className={styles.subscribe}>Subscribe to GridSync+</Link>
-        <button className={styles["mobile-menu"]} aria-label="Open menu" onClick={(e) => { setMenuOpen(true); lastTriggerRef.current = e.currentTarget; }}>
-          <i className="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
+        <Link to="/subscribe" className={styles.subscribe}>Subscribe <span>to GridSync+</span></Link>
+        <button
+          className={styles["mobile-menu"]}
+          aria-label="Open menu"
+          onClick={(e) => { setMenuOpen(true); lastTriggerRef.current = e.currentTarget; }}
+        >
+          <i className="fa-solid fa-ellipsis-vertical"></i>
         </button>
 
-        <div ref={menuRef} className={`${styles["mobile-menu-blur"]} ${menuOpen ? styles.show : ""}`} aria-hidden={!menuOpen}>
+        <div
+          ref={menuRef}
+          className={`${styles["mobile-menu-blur"]} ${menuOpen ? styles.show : ""}`}
+          aria-hidden={!menuOpen}
+        >
           <div className={styles["mobile-menu-header"]}>
             <Link to="/">Grid<span>Sync</span></Link>
-            <button className={styles["mobile-menu-close"]} onClick={() => { setMenuOpen(false); setActiveForm(null); lastTriggerRef.current?.focus(); }} aria-label="Close menu">
-              <i className="fa-solid fa-xmark" aria-hidden="true"></i>
+            <button
+              className={styles["mobile-menu-close"]}
+              onClick={() => { setMenuOpen(false); setActiveForm(null); lastTriggerRef.current?.focus(); }}
+              aria-label="Close menu"
+            >
+              <i className="fa-solid fa-xmark"></i>
             </button>
           </div>
 
@@ -172,13 +202,18 @@ function Header({ title }) {
                   <form onSubmit={handleSignIn} onClick={(e) => e.stopPropagation()}>
                     <div className={styles.header}>
                       <h2>Sign In</h2>
-                      <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); lastTriggerRef.current?.focus(); }} aria-label="Close login form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                      <button
+                        type="button"
+                        className={styles["close-form"]}
+                        onClick={() => { setActiveForm(null); lastTriggerRef.current?.focus(); }}
+                        aria-label="Close login form"
+                      ><i className="fa-solid fa-xmark"></i></button>
                     </div>
                     <div className={styles["form-divider"]}><span></span><span className={styles.label}>Grid<span>Sync</span></span><span></span></div>
                     <div className={styles["input-grouping"]}><label htmlFor="mobile-user-email">Email</label><input type="email" placeholder="Enter your email" id="mobile-user-email" required /></div>
                     <div className={styles["input-grouping"]}><label htmlFor="mobile-user-password">Password</label><input type="password" placeholder="Enter your password" id="mobile-user-password" required /></div>
-                    {showSuccess && <SuccessFormMessage des="Signed in successfully." />}
-                    {showError && <ErrorFormMessage des="Sign-in failed." />}
+                    {loginResult === "success" && <SuccessFormMessage des="Signed in successfully." />}
+                    {loginResult === "error" && <ErrorFormMessage des="Sign-in failed." />}
                     <button type="button" className={styles.redirect} onClick={() => setActiveForm("signup")}>Don't have an account? <span>Sign up</span></button>
                     <button className={styles["form-submission"]}>Sign in</button>
                   </form>
@@ -190,15 +225,28 @@ function Header({ title }) {
                   <form onSubmit={handleSignUp} onClick={(e) => e.stopPropagation()}>
                     <div className={styles.header}>
                       <h2>Sign Up</h2>
-                      <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); lastTriggerRef.current?.focus(); }} aria-label="Close signup form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                      <button
+                        type="button"
+                        className={styles["close-form"]}
+                        onClick={() => { setActiveForm(null); lastTriggerRef.current?.focus(); }}
+                        aria-label="Close signup form"
+                      ><i className="fa-solid fa-xmark"></i></button>
                     </div>
                     <div className={styles["form-divider"]}><span></span><span className={styles.label}>Grid<span>Sync</span></span><span></span></div>
                     <div className={styles["input-grouping"]}><label htmlFor="mobile-user-email">Email</label><input type="email" placeholder="Enter your email" id="mobile-user-email" required /></div>
                     <div className={styles["input-grouping"]}><label htmlFor="mobile-user-password">Password</label><input type="password" placeholder="Enter your password" id="mobile-user-password" required /></div>
-                    {showSuccess && <SuccessFormMessage des="Account created successfully." />}
-                    {showError && <ErrorFormMessage des="Signup failed." />}
+                    {signupResult === "success" && <SuccessFormMessage des="Check your email to complete sign-up." />}
+                    {signupResult === "error" && <ErrorFormMessage des="Sign-up failed. Please try again." />}
                     <button type="button" className={styles.redirect} onClick={() => setActiveForm("login")}>Already have an account? <span>Log in</span></button>
-                    <button className={styles["form-submission"]}>Sign up</button>
+                    <button
+                      className={styles["form-submission"]}
+                      disabled={isConfirming}
+                      style={{ cursor: isConfirming ? "not-allowed" : "pointer" }}
+                    >
+                      {isConfirming
+                        ? <><i className="fa-solid fa-spinner fa-spin"></i>&nbsp;Waiting for email confirmation...</>
+                        : "Sign up"}
+                    </button>
                   </form>
                 </div>
               )}
@@ -214,27 +262,26 @@ function Header({ title }) {
 
           <div className={styles["search-content"]}>
             <div className={styles.searchHeader}>
-              <button aria-label="view friends group" title="Friends"><i className="fa-solid fa-user-group" aria-hidden="true"></i></button>
+              <button aria-label="view friends group" title="Friends"><i className="fa-solid fa-user-group"></i></button>
               <form className={styles["search-form"]} onSubmit={handleSearch}>
                 <div>
-                  <button id="search-btn" type="submit" aria-label="search-button"><i className="fa-solid fa-magnifying-glass" aria-hidden="true"></i></button>
+                  <button type="submit"><i className="fa-solid fa-magnifying-glass"></i></button>
                   <label htmlFor="search-input-field">Search</label>
-                  <input type="text" placeholder="Search for any player" required id="search-input-field" value={query} onChange={(e) => setQuery(e.target.value)} />
+                  <input id="search-input-field" type="text" placeholder="Search for any player" value={query} onChange={(e) => setQuery(e.target.value)} required />
                 </div>
               </form>
             </div>
-
             <div className={styles["main-content"]}>
-              {searchResults !== null && (
+              {searchResults && (
                 <div className={`${styles.section} ${styles.results}`}>
                   <div className={styles["title"]}>
-                    <h2>Results<button className={styles["close-search-results"]} title="Close search results" onClick={handleCloseResults}><i className="fa-solid fa-xmark" aria-hidden="true"></i></button></h2>
+                    <h2>Results<button onClick={handleCloseResults} className={styles["close-search-results"]}><i className="fa-solid fa-xmark"></i></button></h2>
                   </div>
                   <div className={styles["user-results"]}>
                     {searchResults.length === 0 ? (
                       <p className={styles["no-users-found"]}>No users found.</p>
                     ) : (
-                      searchResults.map((u) => (
+                      searchResults.map(u => (
                         <User
                           key={u.id}
                           img={u.profile_picture || "/placeholder.png"}
@@ -250,25 +297,6 @@ function Header({ title }) {
                   </div>
                 </div>
               )}
-
-              <div className={styles.section}>
-                <div className={styles["title"]}>
-                  <h2>Friends</h2>
-                  {friends.length > 0 && <span className={styles["number-of-friends-added"]}>{friends.length}</span>}
-                </div>
-                {friends.length === 0 ? (
-                  <div className={styles["no-friends-state"]}>
-                    <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
-                    <p>{user ? "No Friends Added" : "You must be signed in to Add Friends"}</p>
-                  </div>
-                ) : (
-                  <div className={styles["friends-state"]}>
-                    {friends.map((f) => (
-                      <User key={f.id} img={f.profile_picture || "/placeholder.png"} username={f.username} title={f.title} canAdd={false} canRemove={true} onRemoveClick={() => handleRemoveFriend(f.id)} />
-                    ))}
-                  </div>
-                )}
-              </div>
             </div>
           </div>
         </div>

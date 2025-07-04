@@ -61,12 +61,15 @@ function Store({ user }) {
             <button className={`${styles.dot} ${activeIndex === 4 ? styles.active : ""}`} onClick={() => handleManualSwitch(4)}></button>
           </div>
         </div>
-        <div className={styles["target-container"]}>
-          <HeroTargeter img="/store/anno-117.jpg" title="Pre-order Anno-117: Pax Romana" onClick={() => handleManualSwitch(0)} className={activeIndex === 0 ? styles.active : ""} />
-          <HeroTargeter img="/store/deal.avif" title="Up to 85% off" des="Earn points with any puchase from the GridSync Store" onClick={() => handleManualSwitch(1)} className={activeIndex === 1 ? styles.active : ""} />
-          <HeroTargeter img="/store/the-division-2.jpg" title="Your ticket to Washinton, D.C. for $3" onClick={() => handleManualSwitch(2)} className={activeIndex === 2 ? styles.active : ""} />
-          <HeroTargeter img="/store/rainbow-six-siege.jpg" title="Rainbow Six Siege X: Coming June 10th 2025" onClick={() => handleManualSwitch(3)} className={activeIndex === 3 ? styles.active : ""} />
-          <HeroTargeter img="/store/100plus-games.jpg" title="100+ games, worlds. Explore them all with GridSync+" onClick={() => handleManualSwitch(4)} className={activeIndex === 4 ? styles.active : ""} />
+        <div className={styles.gradientSizingContainer}>
+          <div className={styles["target-container"]}>
+            <HeroTargeter img="/store/anno-117.jpg" title="Pre-order Anno-117: Pax Romana" onClick={() => handleManualSwitch(0)} className={activeIndex === 0 ? styles.active : ""} />
+            <HeroTargeter img="/store/deal.avif" title="Up to 85% off" des="Earn points with any puchase from the GridSync Store" onClick={() => handleManualSwitch(1)} className={activeIndex === 1 ? styles.active : ""} />
+            <HeroTargeter img="/store/the-division-2.jpg" title="Your ticket to Washinton, D.C. for $3" onClick={() => handleManualSwitch(2)} className={activeIndex === 2 ? styles.active : ""} />
+            <HeroTargeter img="/store/rainbow-six-siege.jpg" title="Rainbow Six Siege X: Coming June 10th 2025" onClick={() => handleManualSwitch(3)} className={activeIndex === 3 ? styles.active : ""} />
+            <HeroTargeter img="/store/100plus-games.jpg" title="100+ games, worlds. Explore them all with GridSync+" onClick={() => handleManualSwitch(4)} className={activeIndex === 4 ? styles.active : ""} />
+          </div>
+          <div className={styles.mainVisualGradient}></div>
         </div>
       </section>
 
@@ -129,7 +132,7 @@ function Store({ user }) {
         </div>
       </section>
 
-      <section className="main-content-section">
+      <section className="main-content-section browsingBox">
         <h2 className="main-content-section-title">Browse</h2>
         <div className="main-content-section-grid grid-3 browse">
           <BrowsingBox title="GridSync+" img="/store/gridsync+.webp"/>

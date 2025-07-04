@@ -14,6 +14,19 @@
     overflow: auto;
     position: relative;
 }
+.hero .gradientSizingContainer {
+    position: relative;
+}
+.hero .mainVisualGradient {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, hsl(230, 39%, 7%), hsla(230, 39%, 7%, .9), transparent);
+    z-index: -1;
+}
 .hero .target-container > .active {
     background: var(--highlight);
     border-radius: 10px;
@@ -47,8 +60,6 @@
     overflow: hidden;
 }
 .dot.active {
-    min-width: 2rem;
-    max-width: 2rem;
     background: cornflowerblue;
 }
 .msg-prompt {

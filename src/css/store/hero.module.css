@@ -23,16 +23,22 @@
     text-align: center;
     gap: 1rem;
 }
+.gameTitle {
+    text-transform: uppercase;
+    color: var(--gray);
+    font-weight: 700;
+}
 .title {
-    font-size: 4rem;
+    font-size: 3rem;
     line-height: 1.25;
     max-width: 80rem;
     width: 100%;
+    text-wrap: pretty !important;
 }
 .des {
     max-width: 50rem;
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 .cta {
     min-height: 3rem;

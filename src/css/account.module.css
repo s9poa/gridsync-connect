@@ -4,6 +4,9 @@
     gap: 1rem;
     margin: 2.5rem 1rem;
 }
+.banner > h2 {
+    font-weight: 500;
+}
 .banner > .top {
     display: flex;
     gap: 1rem;
@@ -21,6 +24,11 @@
 .banner .username {
     font-weight: 500;
     font-family: "Assistant", sans-serif;
+     display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
 }
 .banner .account-title {
     font-size: 1.2rem;
@@ -41,6 +49,9 @@
     background: rgba(0,0,0,.5);
     margin-top: .5rem;
     color: var(--gray);
+    width: fit-content;
+    outline: 1px solid rgba(255,255,255,.05);
+    outline-offset: -3px;
 }
 .banner .account-created i {
     color: inherit;
@@ -87,7 +98,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-min-col-size), 100%), 1fr));
     gap: 1rem;
-    padding: 0 1rem;
+    padding: 0 1rem 1rem 1rem;
 }
 .achievements .grid > .item {
     display: flex;
@@ -96,7 +107,7 @@
     justify-content: center;
     aspect-ratio: 1 / 1;
     border: 1px solid var(--hover);
-    border-radius: 20px;
+    border-radius: 10px;
     position: relative;
 }
 .achievements .grid > .item.active {
@@ -110,7 +121,7 @@
     gap: .5rem;
     bottom: 0;
     left: 0;
-    padding: 1rem;
+    padding: .5rem;
     color: limegreen;
     font-size: .8rem;
 }
@@ -146,5 +157,13 @@
     grid-auto-columns: auto;
     gap: 1rem;
     overflow-x: auto;
+  }
+  .banner .account-created {
+    margin: 0 auto;
+    margin-top: .5rem;
+  }
+  .banner > h2 {
+    text-align: center;
+    font-weight: 500;
   }
 }

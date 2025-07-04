@@ -1,5 +1,8 @@
 .container {
     transition: transform .2s ease-in-out;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 .container:hover, .container:active, .container:focus-visible {
     transform: translateY(-5px);

@@ -92,7 +92,7 @@ footer {
 }
 
 /*---- Scrollbar ----*/
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
    display: none;
 }
 ::-webkit-scrollbar-track {
@@ -100,7 +100,7 @@ footer {
 }
 ::-webkit-scrollbar-thumb {
     display: none;
-} */
+}
 
 /*---- Layout ----*/
 .grid-auto-fill {
@@ -146,11 +146,38 @@ main {
 .main-content-section > .main-content-section-title {
     padding: 0 1rem;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0 1rem;
+}
+.main-content-section.vertical > .main-content-section-grid, .main-content-section.vertical .main-content-section-title {
+    margin: 0 auto;
+}
+.main-content-section > .main-content-section-title a {
+    font-size: 1rem;
+    color: hsl(225, 73%, 70%);
+    text-decoration: underline;
 }
 .main-content-section .main-content-section-grid {
     padding: 1rem;
 }
+.main-content-section .main-content-section-grid.grid-2 { 
+    --grid-min-col-size: 250px;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));
+    gap: 1rem;
+}
 .main-content-section .main-content-section-grid.grid-3 {
+    --grid-min-col-size: 215px;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));
+    gap: 1rem;
+}
+.main-content-section .main-content-section-grid.grid-3.browse {
     --grid-min-col-size: 400px;
     
     display: grid;
@@ -183,7 +210,7 @@ main {
         display: flex !important;
         overflow: auto;
     }
-    .main-content-section .main-content-section-grid > .main-content-child {
+    .main-content-section .main-content-section-grid > * {
         min-width: 250px;
     }
 }
@@ -233,7 +260,6 @@ main {
 .main-content-child:hover > .add-to-library-btn {
     display: grid;
 }
-
 @media (max-width: 480px) {
     .add-to-library-btn {
         display: grid;

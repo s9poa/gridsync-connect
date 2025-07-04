@@ -5,7 +5,7 @@ export async function signUp(email, password) {
         email,
         password,
         options: {
-            emailRedirectTo: 'http://localhost:5173/confirm-validation-success'
+            emailRedirectTo: 'gridsync-connect.vercel.app/confirm-validation-success'
         }
     });
 
@@ -17,7 +17,6 @@ export async function signUp(email, password) {
     // DO NOT insert into 'profiles' yet — wait for email confirmation + real login
     return { success: true };
 }
-
 
 export async function signIn(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -59,28 +58,26 @@ export async function updatePassword(newPassword) {
 }
 
 export async function getUserWithProfile() {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session?.user) return null;
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session?.user) return null;
 
-    const { data, error } = await supabase
-        .from('profiles')
-        .select('username, title, profile_picture')
-        .eq('id', session.user.id)
-        .single();
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('username, title, profile_picture')
+    .eq('id', session.user.id);
 
-    if (error) {
-        console.error("Profile fetch error:", error.message);
-        return null;
-    }
+  if (error || !data || data.length !== 1) return null;
 
-    return {
-        id: session.user.id,
-        email: session.user.email,
-        username: data.username,
-        title: data.title,
-        profile_picture: data.profile_picture || null
-    };
+  return {
+    id: session.user.id,
+    email: session.user.email,
+    username: data[0].username,
+    title: data[0].title,
+    profile_picture: data[0].profile_picture || null
+  };
 }
+
+
 
 export async function updateProfilePicture(imagePath) {
     const { data: { user }, error: userError } = await supabase.auth.getUser();

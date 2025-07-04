@@ -14,6 +14,7 @@ function ProfilePictureForm({ setUser, onClose, formTriggerRef }) {
     const [showError, setShowError] = useState(false);
 
     const profileImages = [
+        "/placeholder.png",
         "/profile-picture-1.webp",
         "/profile-picture-2.webp",
         "/profile-picture-3.webp",

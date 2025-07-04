@@ -5,7 +5,7 @@ export async function signUp(email, password) {
         email,
         password,
         options: {
-            emailRedirectTo: 'gridsync-connect.vercel.app/confirm-validation-success'
+            emailRedirectTo: 'https://gridsync-connect.vercel.app/confirm-validation-success'
         }
     });
 

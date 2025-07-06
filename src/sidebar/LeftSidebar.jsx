@@ -58,6 +58,11 @@ function LeftSidebar({ user, setUser }) {
   }, [user]);
 
   useEffect(() => {
+    document.body.style.overflow = activeForm ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [activeForm]);
+
+  useEffect(() => {
     if (!activeForm || !formRef.current) return;
     const container = formRef.current;
     const focusable = container.querySelectorAll("button, input, a");
@@ -219,8 +224,8 @@ function LeftSidebar({ user, setUser }) {
           <form className={styles["search-form"]} onSubmit={handleSearch}>
             <div>
               <button type="submit" aria-label="search-button"><i className="fa-solid fa-magnifying-glass"></i></button>
-              <label htmlFor="search-input-field">Search</label>
-              <input type="text" id="search-input-field" placeholder="Search for any player" required value={query} onChange={(e) => setQuery(e.target.value)} />
+              <label htmlFor="desktop-search-input-field">Search</label>
+              <input type="text" id="desktop-search-input-field" placeholder="Search for any player" required value={query} onChange={(e) => setQuery(e.target.value)} />
             </div>
           </form>
         </div>
@@ -289,9 +294,8 @@ function LeftSidebar({ user, setUser }) {
                 <h2>Sign In</h2>
                 <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); formTriggerRef.current?.focus(); setLoginResult(null); }}><i className="fa-solid fa-xmark"></i></button>
               </div>
-              <div className={styles["form-divider"]}><span></span><span className={styles.label}>Grid<span>Sync</span></span><span></span></div>
-              <div className={styles["input-grouping"]}><label htmlFor="user-email">Email</label><input type="email" id="user-email" placeholder="Enter your email" required /></div>
-              <div className={styles["input-grouping"]}><label htmlFor="user-password">Password</label><input type="password" id="user-password" placeholder="Enter your password" required /></div>
+              <div className={styles["input-grouping"]}><label htmlFor="desktop-user-email">Email</label><input type="email" id="desktop-user-email" placeholder="Enter your email" required /></div>
+              <div className={styles["input-grouping"]}><label htmlFor="desktop-user-password">Password</label><input type="password" id="desktop-user-password" placeholder="Enter your password" required /></div>
               {loginResult === "success" && <SuccessFormMessage des="You're now signed into your account." />}
               {loginResult === "error" && <ErrorFormMessage des="Sign in failed. Please try again." />}
               <button type="button" className={styles.redirect} onClick={() => { setActiveForm("signup"); setLoginResult(null); }}>Don't have an account? <span>Sign up</span></button>
@@ -307,9 +311,8 @@ function LeftSidebar({ user, setUser }) {
                 <h2>Sign Up</h2>
                 <button type="button" className={styles["close-form"]} onClick={() => { setActiveForm(null); formTriggerRef.current?.focus(); setSignupResult(null); }}><i className="fa-solid fa-xmark"></i></button>
               </div>
-              <div className={styles["form-divider"]}><span></span><span className={styles.label}>Grid<span>Sync</span></span><span></span></div>
-              <div className={styles["input-grouping"]}><label htmlFor="user-email">Email</label><input type="email" id="user-email" placeholder="Enter your email" required /></div>
-              <div className={styles["input-grouping"]}><label htmlFor="user-password">Password</label><input type="password" id="user-password" placeholder="Enter your password" required /></div>
+              <div className={styles["input-grouping"]}><label htmlFor="desktop-user-email">Email</label><input type="email" id="desktop-user-email" placeholder="Enter your email" required /></div>
+              <div className={styles["input-grouping"]}><label htmlFor="desktop-user-password">Password</label><input type="password" id="desktop-user-password" placeholder="Enter your password" required /></div>
               {signupResult === "success" && <SuccessFormMessage des="Check your email to complete sign up. Your account will be activated after confirmation." />}
               {signupResult === "error" && <ErrorFormMessage des="Sign up failed. Please try again." />}
               <button type="button" className={styles.redirect} onClick={() => { setActiveForm("login"); setSignupResult(null); }}>Already have an account? <span>Log in</span></button>

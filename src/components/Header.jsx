@@ -52,13 +52,18 @@ function Header({ title }) {
     fetchFriends();
   }, [user]);
 
+    useEffect(() => {
+    document.body.style.overflow = activeForm ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+    }, [activeForm]);
+
   useEffect(() => {
     if (!menuOpen && !activeForm) return;
     const container = activeForm
       ? menuRef.current.querySelector(`.${styles[`${activeForm}-form`]}`)
       : menuRef.current;
     const focusable = container?.querySelectorAll("button, input, a");
-    const first = focusable?.[0], last = focusable?.[focusable.length - 1];
+    const first = focusable?.[0], last = focusable[focusable.length - 1];
     first?.focus();
 
     const trapFocus = (e) => {
@@ -118,7 +123,6 @@ function Header({ title }) {
       setIsConfirming(false);
     } else {
       setSignupResult("success");
-      // keep isConfirming true so user can't re-click; reset on actual confirmation or timeout
     }
   };
 
@@ -135,6 +139,11 @@ function Header({ title }) {
     if (!query.trim()) return;
     const results = await searchUsers(query.trim());
     setSearchResults(results);
+  };
+
+  const handleCloseResults = () => {
+    setSearchResults(null);
+    setQuery("");
   };
 
   const handleAddFriend = async (id) => {
@@ -209,7 +218,6 @@ function Header({ title }) {
                         aria-label="Close login form"
                       ><i className="fa-solid fa-xmark"></i></button>
                     </div>
-                    <div className={styles["form-divider"]}><span></span><span className={styles.label}>Grid<span>Sync</span></span><span></span></div>
                     <div className={styles["input-grouping"]}><label htmlFor="mobile-user-email">Email</label><input type="email" placeholder="Enter your email" id="mobile-user-email" required /></div>
                     <div className={styles["input-grouping"]}><label htmlFor="mobile-user-password">Password</label><input type="password" placeholder="Enter your password" id="mobile-user-password" required /></div>
                     {loginResult === "success" && <SuccessFormMessage des="Signed in successfully." />}
@@ -232,7 +240,6 @@ function Header({ title }) {
                         aria-label="Close signup form"
                       ><i className="fa-solid fa-xmark"></i></button>
                     </div>
-                    <div className={styles["form-divider"]}><span></span><span className={styles.label}>Grid<span>Sync</span></span><span></span></div>
                     <div className={styles["input-grouping"]}><label htmlFor="mobile-user-email">Email</label><input type="email" placeholder="Enter your email" id="mobile-user-email" required /></div>
                     <div className={styles["input-grouping"]}><label htmlFor="mobile-user-password">Password</label><input type="password" placeholder="Enter your password" id="mobile-user-password" required /></div>
                     {signupResult === "success" && <SuccessFormMessage des="Check your email to complete sign-up." />}
@@ -266,8 +273,8 @@ function Header({ title }) {
               <form className={styles["search-form"]} onSubmit={handleSearch}>
                 <div>
                   <button type="submit"><i className="fa-solid fa-magnifying-glass"></i></button>
-                  <label htmlFor="search-input-field">Search</label>
-                  <input id="search-input-field" type="text" placeholder="Search for any player" value={query} onChange={(e) => setQuery(e.target.value)} required />
+                  <label htmlFor="mobile-search-input-field">Search</label>
+                  <input id="mobile-search-input-field" type="text" placeholder="Search for any player" value={query} onChange={(e) => setQuery(e.target.value)} required />
                 </div>
               </form>
             </div>

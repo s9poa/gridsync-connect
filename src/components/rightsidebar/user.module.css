@@ -13,6 +13,11 @@
 }
 .container h4 {
     font-size: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
     font-weight: 500;
 }
 .container p {

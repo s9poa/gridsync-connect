@@ -35,6 +35,13 @@ function Account({ user, setUser }) {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+    const isAnyFormOpen = showUsernameForm || showPasswordForm || showProfilePicForm;
+    document.body.style.overflow = isAnyFormOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+    }, [showUsernameForm, showPasswordForm, showProfilePicForm]);
+
+
     const handleLogout = async () => {
         await signOut();
         setUser(null);

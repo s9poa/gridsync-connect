@@ -85,11 +85,6 @@ function UsernameForm({ user, setUser, onClose, formTriggerRef }) {
                     <h2>Username</h2>
                     <button type="button" className={styles["close-form"]} onClick={handleClose} aria-label="Close username form"><i className="fa-solid fa-xmark" aria-hidden="true"></i></button>
                 </div>
-                <div className={styles["form-divider"]}>
-                    <span></span>
-                    <span className={styles.label}>Grid<span>Sync</span></span>
-                    <span></span>
-                </div>
                 <div className={styles["input-grouping"]}>
                     <label htmlFor="change-username">Username</label>
                     <input type="text" id="change-username" placeholder="Enter your new username" value={newUsername} onChange={e => setNewUsername(e.target.value)} required />

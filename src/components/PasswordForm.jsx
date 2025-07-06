@@ -89,11 +89,6 @@ function PasswordForm({ onClose, formTriggerRef }) {
                         <i className="fa-solid fa-xmark" aria-hidden="true"></i>
                     </button>
                 </div>
-                <div className={styles["form-divider"]}>
-                    <span></span>
-                    <span className={styles.label}>Grid<span>Sync</span></span>
-                    <span></span>
-                </div>
                 <div className={styles["input-grouping"]}>
                     <label htmlFor="change-password">Password</label>
                     <input type="password" id="change-password" placeholder="Enter your new password" value={newPassword} onChange={e => setNewPassword(e.target.value)} required />

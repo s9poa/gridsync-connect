@@ -1,1 +1,1 @@
-gridsync-connect.vercel.app
+https://gridsync-connect.vercel.app/

@@ -112,8 +112,8 @@ function LeftSidebar({ user, setUser }) {
     setSignupResult(null);
     setIsConfirming(true);
 
-    const email = e.target.elements["user-email"].value;
-    const password = e.target.elements["user-password"].value;
+    const email = e.target.elements["desktop-user-email"].value;
+    const password = e.target.elements["desktop-user-password"].value;
     const result = await signUp(email, password);
 
     if (result.error) {
@@ -127,8 +127,8 @@ function LeftSidebar({ user, setUser }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoginResult(null);
-    const email = e.target.elements["user-email"].value;
-    const password = e.target.elements["user-password"].value;
+    const email = e.target.elements["desktop-user-email"].value;
+    const password = e.target.elements["desktop-user-password"].value;
     const result = await signIn(email, password);
     if (result.error) {
       setLoginResult("error");

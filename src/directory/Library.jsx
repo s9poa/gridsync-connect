@@ -54,7 +54,7 @@ function Library({ user }) {
       {!loading && !hasFavorites && (
         <div className={styles["no-favorites-state"]}>
           <div>
-            <img src="/library/signal.png" alt="" />
+            <img src="/library/signal.webp" alt="" />
             <p>Sign-in to Add Games into your Library</p>
             <Link to="/store">Visit Store</Link>
           </div>

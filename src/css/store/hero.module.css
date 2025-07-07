@@ -41,14 +41,14 @@
     font-size: 1rem;
 }
 .cta {
-    min-height: 2.75rem;
+    min-height: 3rem;
     padding: 0 2rem;
     background: royalblue;
     border-radius: 100vw;
     align-content: center;
     text-align: center;
-    font-family: var(--heading-font-family);
-    margin-top: .75rem;
+    margin-top: .5rem;
+    font-weight: 600;
 }
 .warning {
     max-width: 30rem;

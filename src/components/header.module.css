@@ -19,6 +19,7 @@
 }
 .header > div > a {
     background-image: linear-gradient(90deg,#4A00E0, #8E2DE2);
+    background: royalblue;
     padding: .5rem 2rem;
     height: 3rem;
     max-width: 15rem;

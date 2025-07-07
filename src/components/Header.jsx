@@ -162,7 +162,6 @@ function Header({ title }) {
     <header className={styles.header}>
       <h1>{title}</h1>
       <div>
-        <Link to="/subscribe" className={styles.subscribe}>Subscribe <span>to GridSync+</span></Link>
         <button
           className={styles["mobile-menu"]}
           aria-label="Open menu"

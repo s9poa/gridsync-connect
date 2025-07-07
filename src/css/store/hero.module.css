@@ -25,7 +25,7 @@
 }
 .gameTitle {
     text-transform: uppercase;
-    color: var(--gray);
+    color: hsl(0, 0%, 80%);
     font-weight: 700;
 }
 .title {
@@ -41,13 +41,14 @@
     font-size: 1rem;
 }
 .cta {
-    min-height: 3rem;
+    min-height: 2.75rem;
     padding: 0 2rem;
     background: royalblue;
     border-radius: 100vw;
     align-content: center;
     text-align: center;
     font-family: var(--heading-font-family);
+    margin-top: .75rem;
 }
 .warning {
     max-width: 30rem;

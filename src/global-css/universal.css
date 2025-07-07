@@ -229,7 +229,7 @@ main {
     background: var(--hover);
 }
 .open-signup-dialog {
-    background-image: linear-gradient(90deg,#4A00E0, #8E2DE2);
+    background: royalblue;
 }
 
 .add-to-library-btn {

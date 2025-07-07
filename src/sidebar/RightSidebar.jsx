@@ -64,7 +64,7 @@ function RightSidebar({ user }) {
                 searchResults.map((u) => (
                   <User
                     key={u.id}
-                    img={u.profile_picture || "/placeholder.png"}
+                    img={u.profile_picture || "/placeholder.webp"}
                     username={u.username}
                     title={u.title}
                     canAdd={!!user && !isFriend(u.id)}
@@ -91,7 +91,7 @@ function RightSidebar({ user }) {
           ) : (
             <div className={styles["friends-state"]}>
               {friends.map((f) => (
-                <User key={f.id} img={f.profile_picture || "/placeholder.png"} username={f.username} title={f.title} canAdd={false} canRemove={true} onRemoveClick={() => handleRemoveFriend(f.id)} />
+                <User key={f.id} img={f.profile_picture || "/placeholder.webp"} username={f.username} title={f.title} canAdd={false} canRemove={true} onRemoveClick={() => handleRemoveFriend(f.id)} />
               ))}
             </div>
           )}

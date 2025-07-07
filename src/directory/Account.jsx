@@ -98,7 +98,7 @@ function Account({ user, setUser }) {
                 <h2>Account Details</h2>
                 <div className={styles.top}>
                     <button ref={profilePicFormTriggerRef} className={styles["edit-profile-picture"]} onClick={() => setShowProfilePicForm(true)}>
-                        <img src={user?.profile_picture || "/placeholder.png"} alt="profile image" width="150" height="150" />
+                        <img src={user?.profile_picture || "/placeholder.webp"} alt="profile image" width="150" height="150" />
                     </button>
                     <div>
                         <h2 className={styles.username}>{user?.username}</h2>

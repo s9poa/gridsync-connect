@@ -190,7 +190,7 @@ function Header({ title }) {
           {user ? (
             <div className={styles["account-display-relative"]}>
               <div className={styles.profile}>
-                <img src={user.profile_picture || "/placeholder.png"} width="80" height="80" alt="profile image" />
+                <img src={user.profile_picture || "/placeholder.webp"} width="80" height="80" alt="profile image" />
                 <h2 className={styles.username}>{user.username}</h2>
                 <p className={styles["account-title"]}>{user.title}</p>
               </div>
@@ -291,7 +291,7 @@ function Header({ title }) {
                       searchResults.map(u => (
                         <User
                           key={u.id}
-                          img={u.profile_picture || "/placeholder.png"}
+                          img={u.profile_picture || "/placeholder.webp"}
                           username={u.username}
                           title={u.title}
                           canAdd={!!user && !isFriend(u.id)}

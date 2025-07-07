@@ -187,7 +187,7 @@ function LeftSidebar({ user, setUser }) {
         <div className={styles["account-display-relative"]}>
           <button className={`${styles["account-display"]} ${showAccountNav ? styles.active : ""}`} onClick={() => setShowAccountNav(!showAccountNav)} aria-label="Toggle account menu">
             <div className={styles["account-info"]}>
-              <img src={user.profile_picture || "/placeholder.png"} width="60" height="60" alt="profile" />
+              <img src={user.profile_picture || "/placeholder.webp"} width="60" height="60" alt="profile" />
               <div>
                 <h2 className={styles.username}>{user.username}</h2>
                 <p className={styles["account-title"]}>{user.title}</p>
@@ -243,7 +243,7 @@ function LeftSidebar({ user, setUser }) {
                   searchResults.map((u) => (
                     <User
                       key={u.id}
-                      img={u.profile_picture || "/placeholder.png"}
+                      img={u.profile_picture || "/placeholder.webp"}
                       username={u.username}
                       title={u.title}
                       canAdd={!!user && !isFriend(u.id)}
@@ -272,7 +272,7 @@ function LeftSidebar({ user, setUser }) {
                 {friends.map((f) => (
                   <User
                     key={f.id}
-                    img={f.profile_picture || "/placeholder.png"}
+                    img={f.profile_picture || "/placeholder.webp"}
                     username={f.username}
                     title={f.title}
                     canAdd={false}

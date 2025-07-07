@@ -21,7 +21,7 @@ function Confirm({ setUser }) {
         id: user.id,
         username: `guest${Math.random().toString(36).substring(2, 6).toUpperCase()}`,
         title: 'newbie',
-        profile_picture: '/placeholder.png'
+        profile_picture: '/placeholder.webp'
       });
 
       // Fetch complete profile

@@ -176,12 +176,10 @@ function LeftSidebar({ user, setUser }) {
 
   return (
     <aside className={styles.aside}>
-      <NavLink to="/" className={styles.logo}>Grid<span>Sync</span></NavLink>
-      <div className={styles["beta-divider"]}>
-        <span className={styles.divider}></span>
+      <NavLink to="/" className={styles.logoContainer}>
+        <h2 className={styles.logo}>Grid<span>Sync</span></h2>
         <span>Connect</span>
-        <span className={styles.divider}></span>
-      </div>
+      </NavLink>
 
       {user && (
         <div className={styles["account-display-relative"]}>

@@ -59,8 +59,9 @@
     padding: 0 2rem;
     height: 2.25rem;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 500;
     align-content: center;
+    font-family: var(--special-font-family);
 }
 .container h3 {
     font-size: 1rem;

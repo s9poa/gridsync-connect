@@ -176,7 +176,6 @@ function Header({ title }) {
           aria-hidden={!menuOpen}
         >
           <div className={styles["mobile-menu-header"]}>
-            <Link to="/">Grid<span>Sync</span></Link>
             <button
               className={styles["mobile-menu-close"]}
               onClick={() => { setMenuOpen(false); setActiveForm(null); lastTriggerRef.current?.focus(); }}

@@ -5,49 +5,42 @@
     min-width: 20rem;
     height: 100vh;
     height: 100dvh;
-    background: #0e1120;
+    background-image: linear-gradient(to bottom, hsl(230, 39%, 9%), hsl(230, 39%, 15%));
     overscroll-behavior: contain;
     overflow: auto;
     position: sticky;
     top: 0;
     z-index: 10;
+    border-right: 1px solid var(--active);
 }
-.aside::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(hsl(230, 39%, 11%) 1px, transparent 1px);
-    background-size: 10px 10px;
-    z-index: -1;
+.logoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: hsla(230, 39%, 30%, .25);
+    border-bottom: 1px solid var(--active);
 }
+
 .logo {
     text-align: center;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 2rem;
-    font-family: var(--heading-font-family);
-    padding: 1rem;
+    font-family: var(--special-font-family);
 }
-.logo span {
+.logo > span {
     font-family: inherit;
     color: #9fc0ff;
 }
-.beta-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 0 1rem;
-    user-select: none;
+.logoContainer > span {
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--gray);
+    text-transform: uppercase;
 }
-.beta-divider .divider {
-    height: 1px;
-    width: 100%;
-    background: var(--highlight);
-}
+
 .beta-divider span:not(.divider) {
     text-transform: uppercase;
     letter-spacing: .05em;
@@ -55,6 +48,7 @@
 }
 .account-display-relative {
     position: relative;
+    margin-top: 1rem;
 }
 .account-display {
     display: flex;
@@ -62,7 +56,6 @@
     align-items: center;
     gap: .5rem;
     padding: 1rem;
-    margin-top: 1rem;
     width: 100%;
 }
 .account-display.active {
@@ -122,9 +115,6 @@
 }
 
 /* Primary Links */
-.primary-links {
-    margin-top: 1rem;
-}
 .primary-links > a {
     display: flex;
     align-items: center;
@@ -260,8 +250,7 @@
 /* Search Content */
 .search-content {
     display: none;
-    background: hsl(230, 39%,11%);
-    border-block: 1px solid var(--hover);
+    border-block: 1px solid var(--active);
 }
 .search-content .searchHeader {
     display: flex;
@@ -415,7 +404,7 @@
     font-size: .8rem;
     color: var(--gray);
 }
-@media(max-width: 1400px) {
+@media(max-width: 1550px) {
     .search-content {
         display: block;
     }

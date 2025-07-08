@@ -48,7 +48,6 @@
 }
 .account-display-relative {
     position: relative;
-    margin-top: 1rem;
 }
 .account-display {
     display: flex;

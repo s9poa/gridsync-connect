@@ -1,5 +1,5 @@
 # GridSync Connect  
-A fully functional project built to simulate a connected gaming platform with user accounts, profiles, and social features.
+This project simulates a connected gaming platform with user accounts, profiles, and social features.
 
 ## 🌐 Live Site  
 [Visit GridSync Connect](https://your-live-link.com) <!-- Replace with your live site link -->

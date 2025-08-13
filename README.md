@@ -2,7 +2,7 @@
 This project simulates a connected gaming platform with user accounts, profiles, and social features.
 
 ## 🌐 Live Site  
-[Visit GridSync Connect](https://your-live-link.com) <!-- Replace with your live site link -->
+[https://gridsync-connect.vercel.app/](https://gridsync-connect.vercel.app/) <!-- Replace with your live site link -->
 
 ## 🎯 Purpose  
 GridSync Connect was created to closely simulate the features and user experience of a modern gaming service.  
@@ -16,10 +16,10 @@ It includes core functionality such as authentication, profile customization, an
 • Real-time UI updates without page reloads  
 
 ## 🛠 Tech Stack  
-- **Vite + React** – Modern, fast front-end development  
-- **Supabase** – Authentication and database management  
-- **JavaScript (ES6)** – Application logic  
-- **CSS Modules** – Scoped, maintainable styling
+- **Vite + React**
+- **Supabase**
+- **JavaScript**
+- **CSS**
 
 ## 📌 Possible Enhancements  
 - In-app messaging between friends  

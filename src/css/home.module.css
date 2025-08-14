@@ -5,10 +5,9 @@
     max-width: 100rem;
     width: 100%;
     margin: 0 auto;
-    --grid-min-col-size: 200px;
     
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min-col-size), 100%), 1fr));
+    grid-template-columns: repeat(4,1fr);
     gap: 1rem;
     padding: 1rem;
     overflow: auto;
@@ -27,9 +26,16 @@
     background-image: linear-gradient(to bottom, hsl(230, 39%, 7%), hsla(230, 39%, 7%, .9), transparent);
     z-index: -1;
 }
-.hero .target-container > .active {
-    background: var(--highlight);
-    border-radius: 10px;
+.hero .target-container > .active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    outline: 2px solid hsla(43, 74%, 49%, .5);
+    outline-offset: -6px;
 }
 .gradient {
     position: absolute;
@@ -62,7 +68,11 @@
 .dot.active {
     background: cornflowerblue;
 }
-
+@media (max-width: 1820px) {
+    .hero .target-container {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
 @media (max-width: 480px) {
     .hero .target-container {
         grid-template-columns: repeat(5,1fr);

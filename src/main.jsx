@@ -1,21 +1,21 @@
-import './global-css/universal.css';
+import './Frontend/css/global-css/universal.css';
 import './assets/fontawesome/css/all.min.css';
 
 import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router";
-import { getUserWithProfile } from './utils/auth';
+import { getUserWithProfile } from './Backend/utils/auth.js';
 
-import Home from './directory/Home.jsx';
-import Library from './directory/Library.jsx';
-import Store from './directory/Store.jsx';
-import Subscribe from './directory/Subscribe.jsx';
-import LeftSidebar from './sidebar/LeftSidebar.jsx';
-import RightSidebar from './sidebar/RightSidebar.jsx';
-import Account from './directory/Account.jsx';
-import Confirm from './directory/Confirm.jsx';
+import Home from './Frontend/directory/Home.jsx';
+import Library from './Frontend/directory/Library.jsx';
+import Store from './Frontend/directory/Store.jsx';
+import Subscribe from './Frontend/directory/Subscribe.jsx';
+import LeftSidebar from './Frontend/sidebar/LeftSidebar.jsx';
+import RightSidebar from './Frontend/sidebar/RightSidebar.jsx';
+import Account from './Frontend/directory/Account.jsx';
+import Confirm from './Frontend/directory/Confirm.jsx';
 
-import ScrollToTop from './components/ScrollToTop.jsx';
+import ScrollToTop from './ScrollToTop.jsx';
 
 function MainApp() {
   const [user, setUser] = useState(null);

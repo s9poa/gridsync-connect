@@ -56,12 +56,14 @@ function LandscapeGameItem({ user, onSuccess, onError, link, img, tag, title, de
 
   return (
     <Link to={link} className={`${styles["container"]} main-content-child`}>
-      <img src={img} className={styles.img} alt="" />
+      <img src={img} className={styles.img} alt="" width="300" height="170"/>
       <div>
-        {tag && <span className={styles.tag}>{tag}</span>}
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.des}>{des}</p>
-        <span className={styles.price}>{price}</span>
+        <div className={styles.footer}>
+          {tag && <span className={styles.tag}>{tag}</span>}
+          <span className={styles.price}>{price}</span>
+        </div>
       </div>
       {user && (
         <button className={`${styles["add-to-library-btn"]} add-to-library-btn`} onClick={handleToggleFavorite}>

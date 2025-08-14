@@ -52,10 +52,23 @@ function Header({ title }) {
     fetchFriends();
   }, [user]);
 
-    useEffect(() => {
-    document.body.style.overflow = activeForm ? "hidden" : "";
+  useEffect(() => {
+    document.body.style.overflow = menuOpen || activeForm ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-    }, [activeForm]);
+  }, [menuOpen, activeForm]);
+
+  // Close menu when clicking anywhere outside mobile-menu-blur
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuOpen && menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+        setActiveForm(null);
+        lastTriggerRef.current?.focus();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [menuOpen]);
 
   useEffect(() => {
     if (!menuOpen && !activeForm) return;

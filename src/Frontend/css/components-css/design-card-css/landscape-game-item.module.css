@@ -9,6 +9,9 @@
 }
 .img {
     border-radius: 10px 10px 0 0;
+    aspect-ratio: 16/9;
+    width: 100%;
+    height: auto;
 }
 .container > div {
     display: flex;
@@ -21,19 +24,34 @@
 .container:hover > div, .container:active > div, .container:focus-visible > div {
     background: var(--active);
 }
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: .5rem;
+}
 .tag {
-    position: absolute;
-    top: 0;
-    transform: translateY(calc(-100% + -1rem));
-    background: #fff;
-    padding: 0 1rem;
+    padding-left: .5rem;
     height: 1.75rem;
-    color: #000;
+    color: hsl(219, 100%, 81%);
     align-content: center;
-    font-family: var(--heading-font-family);
+    font-family: var(--special-font-family);
     border-radius: 5px;
     font-weight: 600;
+    position: relative;
     font-size: .8rem;
+    text-transform: uppercase;
+}
+.tag::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background: hsl(219, 100%, 81%);
+    width: 4px;
+    height: 50%;
+    transform: translateY(-50%);
+    border-radius: 100vw;
 }
 .title {
     font-size: 1rem;
@@ -50,5 +68,4 @@
 .price {
     font-size: 1.2rem;
     font-weight: 700;
-    margin: 1rem 0 0 auto;
 }

@@ -1,4 +1,4 @@
-import styles from "../../css/components-css/header-and-footer-css/Footer.module.css";
+import styles from "../../css/components-css/header-and-footer-css/footer.module.css";
 import { Link } from "react-router";
 
 function Footer () {

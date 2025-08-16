@@ -57,8 +57,8 @@ function Home() {
       <section className="main-content-section vertical">
         <h2 className="main-content-section-title">Featured <Link to="/store">Visit GridSync Store</Link></h2>
         <div className="main-content-section-grid grid-2">
-          <FeaturedBox img="/home/anno.webp" tab="GridSync+" title="Get 20% off when you redeem 100 GridSync Points!" />
-          <FeaturedBox img="/home/siege-pack.avif" tab="GridSync+" title="The Limited edition Siege X pack leaves our shop soon. Secure it now and flex it forever!" />
+          <FeaturedBox tab="GridSync Plus+" img="/home/featured/featured-anno.webp" imgText="Get Anno 1800 For Only $6" title="Build your empire in Anno 180, the best-selling title in this award-winning franchise." />
+          <FeaturedBox img="/home/ac-shadows.webp" imgText="Get 35% off" title="Leap, don't walk! Now's your chance to save on Assassin's Creed Shadows." />
         </div>
       </section>
 

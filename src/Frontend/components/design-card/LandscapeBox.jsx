@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 function LandscapeBox({ link, img, tag, title, des, price, cta, subTitle,date }) {
 
   return (
-    <Link to={link} className={`${styles["container"]} main-content-child`}>
+    <Link to={link} className={`${styles["container"]} main-content-child animate-onView`}>
       <img src={img} className={styles.img} alt="" />
       <div>
         {tag && <span className={styles.tag}>{tag}</span>}

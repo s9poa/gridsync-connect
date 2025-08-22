@@ -55,7 +55,7 @@ function LandscapeGameItem({ user, onSuccess, onError, link, img, tag, title, de
   };
 
   return (
-    <Link to={link} className={`${styles["container"]} main-content-child`}>
+    <Link to={link} className={`${styles["container"]} main-content-child animate-onView`}>
       <img src={img} className={styles.img} alt="" width="300" height="170"/>
       <div>
         <h3 className={styles.title}>{title}</h3>

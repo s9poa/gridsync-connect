@@ -2,7 +2,7 @@ import styles from '../../css/components-css/design-card-css/payment-card.module
 
 function PaymentCard ({title, des, cost, list1, list2, list3, list4, list5, list6, list7}) {
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} animate-onView`}>
             <div className={styles.header}>
                 <h3>{title}</h3>
                 <p>{des}</p>

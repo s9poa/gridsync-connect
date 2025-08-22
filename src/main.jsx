@@ -3,7 +3,7 @@ import './assets/fontawesome/css/all.min.css';
 
 import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import { getUserWithProfile } from './Backend/utils/auth.js';
 
 import Home from './Frontend/directory/Home.jsx';
@@ -16,6 +16,36 @@ import Account from './Frontend/directory/Account.jsx';
 import Confirm from './Frontend/directory/Confirm.jsx';
 
 import ScrollToTop from './ScrollToTop.jsx';
+
+function AnimateOnViewHandler() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const elements = document.querySelectorAll(".animate-onView");
+
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.visibility = "visible";
+            entry.target.style.animation = "onView .275s alternate";
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.0005 }
+    );
+
+    elements.forEach(el => {
+      el.style.visibility = "hidden";
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
+  return null;
+}
 
 function MainApp() {
   const [user, setUser] = useState(null);
@@ -36,6 +66,7 @@ function MainApp() {
     <div id="main-layout">
       <BrowserRouter>
         <ScrollToTop />
+        <AnimateOnViewHandler />
         <LeftSidebar user={user} setUser={setUser} />
         <Routes>
           <Route path="/" element={<Home />} />

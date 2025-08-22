@@ -55,7 +55,7 @@ function PortraitGameItem({ user, onSuccess, onError, link, img, discount, title
     };
 
     return (
-        <Link to={link} className={`${styles["container"]} main-content-child`}>
+        <Link to={link} className={`${styles["container"]} main-content-child animate-onView`}>
             <img src={img} className={styles.img} alt="" />
             <div>
                 {tag && <span className={styles.tag}>{tag}</span>}

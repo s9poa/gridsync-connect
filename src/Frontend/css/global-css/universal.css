@@ -145,6 +145,22 @@ footer {
         opacity: 1;
     }
 }
+.homepage-banner-positioning {
+    background-position: center;
+    background-size: cover;
+}
+.homepage-farcry-6-banner-img {
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), rgba(0,0,0,.9)), url('/home/far-cry-6.webp');
+}
+.homepage-ac-shadows-banner-img {
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), rgba(0,0,0,.9)), url('/home/ac-shadows.webp');
+}
+.homepage-r6-banner-img {
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), rgba(0,0,0,.9)), url('/home/r6.webp');
+}
+.homepage-ac-mirage-banner-img {
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), rgba(0,0,0,.9)), url('/home/ac-mirage.webp');
+}
 
 #main-layout {
     display: flex;

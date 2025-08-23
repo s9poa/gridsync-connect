@@ -32,10 +32,10 @@ function Home() {
           <div className={styles.gradient}></div>
           <Header className={styles.header} title="Home"/>
           
-          {activeIndex === 0 && <Hero img="/home/far-cry-6.webp" gameTitle ="Far Cry 6" title="Ready for Your Next Adventure?" des="Discover Fary Cry 6 and take down the tyrannical dictaor Anton Castillo." ctaLink="/" ctaText="Play now" />}
-          {activeIndex === 1 && <Hero img="/home/ac-shadows.webp" gameTitle ="Assassin's Creed Shadows" title="Save 25% on Assassin's Creed Shadows" des="Plus, get an extra 20% off your cart when you redeem 100 GridSync Points!" ctaLink="/" ctaText="Get the game" />}
-          {activeIndex === 2 && <Hero img="/home/r6.webp" gameTitle ="Rainbow Six Siege" title="Get free access to Siege X now!" des="Engage in intense 5v5 attack vs defense matches where elite strategy execution triumph." ctaLink="/" ctaText="Play now" />}
-          {activeIndex === 3 && <Hero img="/home/ac-mirage.webp" gameTitle ="Assassin's Creed Mirage" title="Discover a Tribute to the Original" des="Experience a mordern take on the iconic features and gameplay that have defined a franchise for 15 years." ctaLink="/" ctaText="Get it now" />}
+          {activeIndex === 0 && <Hero className="homepage-farcry-6-banner-img homepage-banner-positioning" gameTitle ="Far Cry 6" title="Ready for Your Next Adventure?" des="Discover Fary Cry 6 and take down the tyrannical dictaor Anton Castillo." ctaLink="/" ctaText="Play now" />}
+          {activeIndex === 1 && <Hero className="homepage-ac-shadows-banner-img homepage-banner-positioning" gameTitle ="Assassin's Creed Shadows" title="Save 25% on Assassin's Creed Shadows" des="Plus, get an extra 20% off your cart when you redeem 100 GridSync Points!" ctaLink="/" ctaText="Get the game" />}
+          {activeIndex === 2 && <Hero className="homepage-r6-banner-img homepage-banner-positioning" gameTitle ="Rainbow Six Siege" title="Get free access to Siege X now!" des="Engage in intense 5v5 attack vs defense matches where elite strategy execution triumph." ctaLink="/" ctaText="Play now" />}
+          {activeIndex === 3 && <Hero className="homepage-ac-mirage-banner-img homepage-banner-positioning" gameTitle ="Assassin's Creed Mirage" title="Discover a Tribute to the Original" des="Experience a mordern take on the iconic features and gameplay that have defined a franchise for 15 years." ctaLink="/" ctaText="Get it now" />}
           <div className={styles["carousel-tracker"]}>
             <button className={`${styles.dot} ${activeIndex === 0 ? styles.active : ""}`} onClick={() => handleManualSwitch(0)}></button>
             <button className={`${styles.dot} ${activeIndex === 1 ? styles.active : ""}`} onClick={() => handleManualSwitch(1)}></button>
@@ -45,7 +45,7 @@ function Home() {
         </div>
         <div className={styles.gradientSizingContainer}>
           <div className={styles["target-container"]}>
-            <HeroTargeter img="/home/far-cry-6.webp" title="Ready for Your Next Adventure?" onClick={() => handleManualSwitch(0)} className={activeIndex === 0 ? styles.active : ""} />
+            <HeroTargeter img="/home/far-cry-6.webp" title="Ready for Your Next Adventure?" onClick={() => handleManualSwitch(0)} className={activeIndex === 0 ? styles.active : ""}/>
             <HeroTargeter img="/home/ac-shadows.webp" gameTitle ="Assassin's Creed Shadows" title="Save 25% on Assassin's Creed Shadows" onClick={() => handleManualSwitch(1)} className={activeIndex === 1 ? styles.active : ""} />
             <HeroTargeter img="/home/r6.webp" title="Get free access to Siege X now!" onClick={() => handleManualSwitch(2)} className={activeIndex === 2 ? styles.active : ""} />
             <HeroTargeter img="/home/ac-mirage.webp" gameTitle="Assassin's Creed Mirage" title="Discover a Tribute to the Original" onClick={() => handleManualSwitch(3)} className={activeIndex === 3 ? styles.active : ""} />

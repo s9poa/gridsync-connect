@@ -1,9 +1,9 @@
 import styles from '../../css/components-css/hero-css/hero.module.css';
 import { Link } from 'react-router';
 
-function Hero ({img, title, des, ctaLink, ctaText, warning, gameTitle}) {
+function Hero ({img, title, des, ctaLink, ctaText, warning, gameTitle, className}) {
     return (
-        <div className={styles["container"]}>
+        <div className={`${styles["container"]} ${className}`}>
             
             <img src={img} alt=""/>
             <div className={styles["content-grouping"]}>

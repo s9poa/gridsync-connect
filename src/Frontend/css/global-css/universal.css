@@ -145,21 +145,54 @@ footer {
         opacity: 1;
     }
 }
+/* Hero Images */
 .homepage-banner-positioning {
     background-position: center;
     background-size: cover;
 }
 .homepage-farcry-6-banner-img {
-    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), rgba(0,0,0,.9)), url('/home/far-cry-6.webp');
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, .9)), url('/home/far-cry-6.webp');
 }
 .homepage-ac-shadows-banner-img {
-    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), rgba(0,0,0,.9)), url('/home/ac-shadows.webp');
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, .9)), url('/home/ac-shadows.webp');
 }
 .homepage-r6-banner-img {
-    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), rgba(0,0,0,.9)), url('/home/r6.webp');
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, .9)), url('/home/r6.webp');
 }
 .homepage-ac-mirage-banner-img {
-    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), rgba(0,0,0,.9)), url('/home/ac-mirage.webp');
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, .9)), url('/home/ac-mirage.webp');
+}
+@media(max-width: 920px) {
+    .homepage-farcry-6-banner-img {
+        background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, 1)), url('/home/far-cry-6.webp');
+    }
+    .homepage-ac-shadows-banner-img {
+        background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, 1)), url('/home/ac-shadows.webp');
+    }
+    .homepage-r6-banner-img {
+        background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, 1)), url('/home/r6.webp');
+    }
+    .homepage-ac-mirage-banner-img {
+        background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, 1)), url('/home/ac-mirage.webp');
+    }
+}
+
+/* Hero Targeter Images */
+.herotargeter-positioning {
+    background-size: cover;
+    background-position: center;
+}
+.homepage-farcry-6-herotargeter-img {
+    background-image: url('/home/far-cry-6.webp');
+}
+.homepage-ac-shadows-herotargeter-img{
+    background-image: url('/home/ac-shadows.webp');
+}
+.homepage-r6-herotargeter-img {
+    background-image: url('/home/r6.webp');
+}
+.homepage-ac-mirage-herotargeter-img {
+    background-image: url('/home/ac-mirage.webp');
 }
 
 #main-layout {

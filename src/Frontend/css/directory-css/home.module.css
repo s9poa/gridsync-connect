@@ -86,7 +86,9 @@
 }
 @media (max-width: 480px) {
     .hero .target-container {
-        grid-template-columns: repeat(5,1fr);
+        display: flex;
+        gap: 1rem;
+        border-block: 1px solid var(--hover);
     }
     .hero .target-container > * {
         min-width: 250px;

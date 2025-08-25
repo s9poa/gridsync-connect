@@ -61,19 +61,25 @@
     .title {
         font-size: 2rem;
         max-width: 40rem;
+        text-wrap: pretty;
     }
     .des {
         max-width: 30rem;
+        text-wrap: pretty;
         font-size: 1rem;
     }
     .warning {
         max-width: 20rem;
         font-size: .8rem;
     }
+    .cta {
+        min-height: 2.5rem;
+    }
 }
 @media(max-width: 480px) {
     .container {
-        height: 25rem;
+        height: 30rem;
+        margin-top: 4rem;
     }
     .title {
         font-size: 1.5rem;

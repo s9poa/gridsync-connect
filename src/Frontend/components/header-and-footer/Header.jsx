@@ -174,20 +174,18 @@ function Header({ title }) {
   return (
     <header className={styles.header}>
       <div>
-        <button
-          className={styles["mobile-menu"]}
-          aria-label="Open menu"
-          onClick={(e) => { setMenuOpen(true); lastTriggerRef.current = e.currentTarget; }}
-        >
-          <i className="fa-solid fa-ellipsis-vertical"></i>
-        </button>
-
+        <div className={styles["top__visable__header"]}>
+          <Link to="/" className={styles['logo-link']}>GridSync <span>Connect</span></Link>
+          <button className={styles["mobile-menu"]} aria-label="Open menu" onClick={(e) => { setMenuOpen(true); lastTriggerRef.current = e.currentTarget; }}><i className="fa-solid fa-ellipsis-vertical"></i></button>
+        </div>
         <div
           ref={menuRef}
           className={`${styles["mobile-menu-blur"]} ${menuOpen ? styles.show : ""}`}
           aria-hidden={!menuOpen}
         >
           <div className={styles["mobile-menu-header"]}>
+            <div className={styles["top__visable__header"]}>
+            <Link to="/" className={styles['logo-link']}>GridSync <span>Connect</span></Link>
             <button
               className={styles["mobile-menu-close"]}
               onClick={() => { setMenuOpen(false); setActiveForm(null); lastTriggerRef.current?.focus(); }}
@@ -195,6 +193,7 @@ function Header({ title }) {
             >
               <i className="fa-solid fa-xmark"></i>
             </button>
+            </div>
           </div>
 
           {user ? (

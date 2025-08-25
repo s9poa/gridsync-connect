@@ -45,10 +45,10 @@ function Home() {
         </div>
         <div className={styles.gradientSizingContainer}>
           <div className={styles["target-container"]}>
-            <HeroTargeter img="/home/far-cry-6.webp" title="Ready for Your Next Adventure?" onClick={() => handleManualSwitch(0)} className={activeIndex === 0 ? styles.active : ""}/>
-            <HeroTargeter img="/home/ac-shadows.webp" gameTitle ="Assassin's Creed Shadows" title="Save 25% on Assassin's Creed Shadows" onClick={() => handleManualSwitch(1)} className={activeIndex === 1 ? styles.active : ""} />
-            <HeroTargeter img="/home/r6.webp" title="Get free access to Siege X now!" onClick={() => handleManualSwitch(2)} className={activeIndex === 2 ? styles.active : ""} />
-            <HeroTargeter img="/home/ac-mirage.webp" gameTitle="Assassin's Creed Mirage" title="Discover a Tribute to the Original" onClick={() => handleManualSwitch(3)} className={activeIndex === 3 ? styles.active : ""} />
+            <HeroTargeter className={`homepage-farcry-6-herotargeter-img herotargeter-positioning ${activeIndex === 0 ? styles.active : ""}`} title="Ready for Your Next Adventure?" onClick={() => handleManualSwitch(0)} />
+            <HeroTargeter className={`homepage-ac-shadows-herotargeter-img herotargeter-positioning ${activeIndex === 1 ? styles.active : ""}`} gameTitle ="Assassin's Creed Shadows" title="Save 25% on Assassin's Creed Shadows" onClick={() => handleManualSwitch(1)} />
+            <HeroTargeter className={`homepage-r6-herotargeter-img herotargeter-positioning ${activeIndex === 2 ? styles.active : ""}`} title="Get free access to Siege X now!" onClick={() => handleManualSwitch(2)} />
+            <HeroTargeter className={`homepage-ac-mirage-herotargeter-img herotargeter-positioning ${activeIndex === 3 ? styles.active : ""}`} gameTitle="Assassin's Creed Mirage" title="Discover a Tribute to the Original" onClick={() => handleManualSwitch(3)} />
           </div>
           <div className={styles.mainVisualGradient}></div>
         </div>

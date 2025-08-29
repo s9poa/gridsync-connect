@@ -162,6 +162,21 @@ footer {
 .homepage-ac-mirage-banner-img {
     background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, .9)), url('/home/ac-mirage.webp');
 }
+.storepage-rainbow-six-siege-banner-img {
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, .9)), url('/store/rainbow-six-siege.webp');
+}
+.storepage-deal-banner-img {
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, .9)), url('/store/deal.webp');
+}
+.storepage-the-division-2-banner-img {
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, .9)), url('/store/the-division-2.webp');
+}
+.storepage-anno-117-banner-img {
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, .9)), url('/store/anno-117.webp');
+}
+.storepage-100plus-games-banner-img {
+    background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, .9)), url('/store/100plus-games.webp');
+}
 @media(max-width: 920px) {
     .homepage-farcry-6-banner-img {
         background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, 1)), url('/home/far-cry-6.webp');
@@ -174,6 +189,21 @@ footer {
     }
     .homepage-ac-mirage-banner-img {
         background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, 1)), url('/home/ac-mirage.webp');
+    }
+    .storepage-rainbow-six-siege-banner-img {
+        background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, 1)), url('/store/rainbow-six-siege.webp');
+    }
+    .storepage-deal-banner-img {
+        background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, 1)), url('/store/deal.webp');
+    }
+    .storepage-the-division-2-banner-img {
+        background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, 1)), url('/store/the-division-2.webp');
+    }
+    .storepage-anno-117-banner-img {
+        background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, 1)), url('/store/anno-117.webp');
+    }
+    .storepage-100plus-games-banner-img {
+        background-image: linear-gradient(to top, hsla(230, 39%, 7%, 1), hsla(230, 39%, 7%, .9), hsla(230, 39%, 7%, 1)), url('/store/100plus-games.webp');
     }
 }
 
@@ -193,6 +223,21 @@ footer {
 }
 .homepage-ac-mirage-herotargeter-img {
     background-image: url('/home/ac-mirage.webp');
+}
+.storepage-rainbow-six-siege-herotargeter-img {
+    background-image: url('/store/rainbow-six-siege.webp');
+}
+.storepage-deal-herotargeter-img {
+    background-image: url('/store/deal.webp');
+}
+.storepage-the-division-2-herotargeter-img {
+    background-image: url('/store/the-division-2.webp');
+}
+.storepage-anno-117-herotargeter-img {
+    background-image: url('/store/anno-117.webp');
+}
+.storepage-100plus-games-herotargeter-img {
+    background-image: url('/store/anno-117.webp');
 }
 
 #main-layout {
@@ -330,3 +375,54 @@ main {
         display: grid;
     }
 }
+
+/* Infinite Marquee Styling */
+.position-absolute-marquee{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    user-select: none;
+    pointer-events: none;
+}
+.marquee {
+    display: flex;
+    /* gap: 1rem; */
+    overflow: clip;
+    position: relative;
+}
+.marquee-content {
+    display: flex;
+    justify-content: space-around;
+    /* min-width: 100vw; */
+    flex-shrink: 0;
+    /* gap: 1rem; */
+    animation: infinite-marquee 60s linear infinite;
+}
+.marquee-content {
+    animation: infinite-marquee 30s linear infinite;
+}
+.marquee-content img {
+    object-fit: cover;
+    object-position: top;
+    transition: height .175s ease-in-out, width .175s ease-in-out;
+    height: 320px;
+    opacity: .0275;
+    border-radius: 20px 20px 0 0;
+}
+@keyframes infinite-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      /* transform: translateX(calc(-100% - 1rem)); */
+        transform: translateX(calc(-100%));
+    }
+}
+@media(max-width: 1440px) {
+    main .marquee-content img {
+        height: 296px;
+        width: 100%;
+    }
+}
+

@@ -97,6 +97,7 @@ function RightSidebar({ user }) {
           )}
         </div>
       </div>
+      
     </aside>
   );
 }

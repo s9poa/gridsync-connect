@@ -20,13 +20,22 @@
     justify-content: center;
     padding: 1rem;
     border-bottom: 1px solid var(--active);
+    position: relative;
+}
+.logoContainer img {
+    height: 84px;
+    border-radius: 0;
+    object-position: center;
 }
 
 .logo {
+    display: flex;
+    align-items: center;
     text-align: center;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 900;
     font-size: 2rem;
+    line-height: 1;
     font-family: var(--special-font-family);
 }
 .logo > span {
@@ -35,7 +44,7 @@
 }
 .logoContainer > span {
     font-size: .8rem;
-    font-weight: 700;
+    font-weight: 500;
     color: var(--gray);
     text-transform: uppercase;
 }
@@ -249,6 +258,11 @@
 .search-content {
     display: none;
     border-block: 1px solid var(--active);
+}
+@media(max-height: 700px) {
+    .search-content {
+        background: hsl(230, 39%, 9%);
+    }
 }
 .search-content .searchHeader {
     display: flex;

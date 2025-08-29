@@ -6,6 +6,15 @@
 }
 .no-favorites-state {
     padding: 0 1rem;
+    margin-top: 1rem;
+}
+@media(max-width: 920px) {
+    .no-favorites-state {
+        margin: 5rem 0 1rem 0;
+    }
+    .grid {
+        margin-top: 4rem;
+    }
 }
 .no-favorites-state > div {
     border: 1px solid var(--active);

@@ -179,6 +179,22 @@ function LeftSidebar({ user, setUser }) {
       <NavLink to="/" className={styles.logoContainer}>
         <h2 className={styles.logo}>Grid<span>Sync</span></h2>
         <span>Connect</span>
+              <div className="position-absolute-marquee">
+        <div className="marquee">
+            <div className="marquee-content">
+              <img src="/public/store/farcry.webp" width="200" height="444" alt=""/>
+              <img src="/public/store/for-honor.webp" width="200" height="444" alt=""/>
+              <img src="/public/store/the-division-2.webp" width="200" height="444" alt=""/>
+              <img src="/public/store/watch-dogs.webp" width="200" height="444" alt=""/>
+            </div>
+            <div className="marquee-content">
+              <img src="/public/store/farcry.webp" width="200" height="444" alt=""/>
+              <img src="/public/store/for-honor.webp" width="200" height="444" alt=""/>
+              <img src="/public/store/the-division-2.webp" width="200" height="444" alt=""/>
+              <img src="/public/store/watch-dogs.webp" width="200" height="444" alt=""/>
+            </div>
+          </div>
+        </div>
       </NavLink>
 
       {user && (
@@ -321,6 +337,7 @@ function LeftSidebar({ user, setUser }) {
           </div>
         )}
       </div>
+
     </aside>
   );
 }

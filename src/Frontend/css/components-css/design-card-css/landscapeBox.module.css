@@ -79,4 +79,25 @@
 .date {
     color: var(--gray);
     margin-top: 1rem;
+    padding-left: .75rem;
+    height: 1.75rem;
+    color: hsl(219, 100%, 81%);
+    align-content: center;
+    font-family: var(--special-font-family);
+    border-radius: 5px;
+    font-weight: 600;
+    position: relative;
+    font-size: .8rem;
+    text-transform: uppercase;
+}
+.date::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background: hsl(219, 100%, 81%);
+    width: 4px;
+    height: 50%;
+    transform: translateY(-50%);
+    border-radius: 100vw;
 }

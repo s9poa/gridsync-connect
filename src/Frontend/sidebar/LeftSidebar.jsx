@@ -182,16 +182,16 @@ function LeftSidebar({ user, setUser }) {
               <div className="position-absolute-marquee">
         <div className="marquee">
             <div className="marquee-content">
-              <img src="/public/store/farcry.webp" width="200" height="444" alt=""/>
-              <img src="/public/store/for-honor.webp" width="200" height="444" alt=""/>
-              <img src="/public/store/the-division-2.webp" width="200" height="444" alt=""/>
-              <img src="/public/store/watch-dogs.webp" width="200" height="444" alt=""/>
+              <img src="/store/farcry.webp" width="200" height="444" alt=""/>
+              <img src="/store/for-honor.webp" width="200" height="444" alt=""/>
+              <img src="/store/the-division-2.webp" width="200" height="444" alt=""/>
+              <img src="/store/watch-dogs.webp" width="200" height="444" alt=""/>
             </div>
             <div className="marquee-content">
-              <img src="/public/store/farcry.webp" width="200" height="444" alt=""/>
-              <img src="/public/store/for-honor.webp" width="200" height="444" alt=""/>
-              <img src="/public/store/the-division-2.webp" width="200" height="444" alt=""/>
-              <img src="/public/store/watch-dogs.webp" width="200" height="444" alt=""/>
+              <img src="/store/farcry.webp" width="200" height="444" alt=""/>
+              <img src="/store/for-honor.webp" width="200" height="444" alt=""/>
+              <img src="/store/the-division-2.webp" width="200" height="444" alt=""/>
+              <img src="/store/watch-dogs.webp" width="200" height="444" alt=""/>
             </div>
           </div>
         </div>
